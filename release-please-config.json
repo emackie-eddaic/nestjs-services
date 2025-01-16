@@ -1,6 +1,7 @@
 {
   "packages": {
     "packages/nestjs-cacheable": {},
-    "packages/nestjs-google-maps": {}
+    "packages/nestjs-google-maps": {},
+    "packages/nestjs-maxmind-geoip2": {}
   }
 }
