@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.0.0...nestjs-cacheable-v3.0.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* move packages to monorepo ([832cce3](https://github.com/emackie-eddaic/nestjs-services/commit/832cce33f638809afa4484f42ce715682df13a41))
+
 ## [1.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v1.3.0...nestjs-cacheable-v1.4.0) (2025-01-16)
 
 
