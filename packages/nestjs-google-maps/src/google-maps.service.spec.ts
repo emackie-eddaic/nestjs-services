@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GoogleMapsModule } from './google-maps.module';
+import { MODULE_OPTIONS_TOKEN } from './google-maps.module-definition';
 import { GoogleMapsService } from './google-maps.service';
 
 describe('GoogleMapsService', () => {
@@ -8,7 +9,10 @@ describe('GoogleMapsService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [GoogleMapsModule],
-      providers: [],
+      providers: [
+        GoogleMapsService,
+        { provide: MODULE_OPTIONS_TOKEN, useValue: {} },
+      ],
     }).compile();
 
     service = module.get<GoogleMapsService>(GoogleMapsService);
