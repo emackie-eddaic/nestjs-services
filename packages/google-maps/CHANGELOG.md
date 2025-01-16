@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v2.4.0...nestjs-google-maps-v2.5.0) (2025-01-16)
+
+
+### Features
+
+* move packages to monorepo ([b31efd7](https://github.com/emackie-eddaic/nestjs-services/commit/b31efd73906d27a478e2f31f96b172ea8902a79a))
+
 ## [3.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v3.0.0...nestjs-google-maps-v3.1.0) (2025-01-16)
 
 
