@@ -1,0 +1,8 @@
+{
+  "always-update": true,
+  "separate-pull-requests": true,
+  "packages": {
+    "packages/cacheable": {},
+    "packages/google-maps": {}
+  }
+}

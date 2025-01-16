@@ -1,0 +1,23 @@
+{
+  "name": "@eddaic/nestjs-cacheable",
+  "version": "3.1.0",
+  "description": "Cacheable module for DNS caching.",
+  "main": "index.js",
+  "author": "Eric Mackie <eric.mackie@essolutions.ca>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emackie-eddaic/nestjs-cacheable.git"
+  },
+  "keywords": [
+    "nestjs",
+    "module",
+    "cacheable"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "cacheable-lookup": "^6.1.0"
+  }
+}
