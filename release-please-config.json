@@ -1,6 +1,6 @@
 {
   "packages": {
-    "packages/cacheable": {},
-    "packages/google-maps": {}
+    "packages/nestjs-cacheable": {},
+    "packages/nestjs-google-maps": {}
   }
 }

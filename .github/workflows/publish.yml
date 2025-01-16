@@ -1,0 +1,24 @@
+name: Publish
+on:
+  workflow_call:
+    inputs:
+      package:
+        required: true
+        type: string
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          registry-url: https://registry.npmjs.org
+      - run: npm ci --ignore-scripts
+      - run: npm run build --workspace packages/${{ inputs.package }}
+      - run: cp LICENSE packages/${{ inputs.package }}/LICENSE
+      - run: cp packages/${{ inputs.package }}/README.md packages/${{ inputs.package }}/build/README.md
+      - run: jq 'del(.devDependencies) | del(.scripts) | del(.jest)' packages/${{ inputs.package }}/package.json > packages/${{ inputs.package }}/build/package.json
+      - run: npm publish --access public packages/${{ inputs.package }}/build
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
