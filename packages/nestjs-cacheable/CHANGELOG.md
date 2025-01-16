@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.3.0...nestjs-cacheable-v3.3.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* use npm install when installing release packages ([cb58337](https://github.com/emackie-eddaic/nestjs-services/commit/cb583372da5e92753761244381ed8ccd0979c2ef))
+
 ## [3.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.2.0...nestjs-cacheable-v3.3.0) (2025-01-16)
 
 
