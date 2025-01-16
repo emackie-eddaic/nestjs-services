@@ -9,7 +9,7 @@ jobs:
       - env:
           RELEASE_NAME: ${{ github.event.release.name }}
         id: get-package
-        run: echo "package=${RELEASE_NAME%%:/}" >> $GITHUB_OUTPUT
+        run: echo "package=${RELEASE_NAME%%*:}" >> $GITHUB_OUTPUT
       - env:
           PACKAGE: ${{ steps.get-package.outputs.package }}
         run: echo $PACKAGE
