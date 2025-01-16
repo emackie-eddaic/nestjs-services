@@ -1,4 +1,4 @@
 {
-  "packages/nestjs-cacheable": "3.0.1",
-  "packages/nestjs-google-maps": "3.0.1"
+  "packages/nestjs-cacheable": "3.0.2",
+  "packages/nestjs-google-maps": "3.0.2"
 }
