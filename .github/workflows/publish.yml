@@ -5,6 +5,9 @@ on:
       package:
         required: true
         type: string
+    secrets:
+      node-auth-token:
+        required: true
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -21,4 +24,4 @@ jobs:
       - run: jq 'del(.devDependencies) | del(.scripts) | del(.jest)' packages/${{ inputs.package }}/package.json > packages/${{ inputs.package }}/build/package.json
       - run: npm publish --access public packages/${{ inputs.package }}/build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.node-auth-token }}
