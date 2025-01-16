@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v3.4.0...nestjs-google-maps-v3.4.1) (2025-01-16)
+
+
+### Bug Fixes
+
+* use npm install when installing release packages ([cb58337](https://github.com/emackie-eddaic/nestjs-services/commit/cb583372da5e92753761244381ed8ccd0979c2ef))
+
 ## [3.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v3.3.0...nestjs-google-maps-v3.4.0) (2025-01-16)
 
 
