@@ -1,7 +1,7 @@
 {
-  "name": "@eddaic/nestjs-google-maps",
+  "name": "@eddaic/nestjs-maxmind-geoip2",
   "version": "3.3.0",
-  "description": "NestJS Module for Google Maps APIs",
+  "description": "NestJS Module for MaxMind GeoIP2",
   "main": "index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
@@ -12,14 +12,14 @@
   "keywords": [
     "nestjs",
     "module",
-    "google",
-    "maps"
+    "maxmind",
+    "geoip2"
   ],
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "3.4.0",
+    "@maxmind/geoip2-node": "5.0.0",
     "@nestjs/common": "10.4.15"
   }
 }
