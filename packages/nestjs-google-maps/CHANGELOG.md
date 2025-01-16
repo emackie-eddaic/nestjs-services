@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v3.3.0...nestjs-google-maps-v3.4.0) (2025-01-16)
+
+
+### Features
+
+* **nestjs-maxmind-geoip2:** add `@eddaic/nestjs-maxmind-geoip2` package ([#15](https://github.com/emackie-eddaic/nestjs-services/issues/15)) ([9ee0647](https://github.com/emackie-eddaic/nestjs-services/commit/9ee0647998a224f471989c9dab6215149cad2340))
+
+
+### Bug Fixes
+
+* **nestjs-google-maps:** incorrect repository url ([9ee0647](https://github.com/emackie-eddaic/nestjs-services/commit/9ee0647998a224f471989c9dab6215149cad2340))
+
 ## [3.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v3.2.0...nestjs-google-maps-v3.3.0) (2025-01-16)
 
 
