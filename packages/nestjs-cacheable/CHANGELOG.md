@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.1.0...nestjs-cacheable-v3.2.0) (2025-01-16)
+
+
+### Features
+
+* empty commit ([b2658cb](https://github.com/emackie-eddaic/nestjs-services/commit/b2658cb3941a869348c8b4fe2ea993e88cc8173f))
+
 ## [3.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.0.2...nestjs-cacheable-v3.1.0) (2025-01-16)
 
 
