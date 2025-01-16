@@ -1,0 +1,6 @@
+{
+  "packages": {
+    "packages/cacheable": {},
+    "packages/google-maps": {}
+  }
+}
