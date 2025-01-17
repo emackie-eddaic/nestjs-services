@@ -97,3 +97,20 @@ updates:
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
+
+  # ThingsBoard HTTP Integration
+  - package-ecosystem: 'npm'
+    directory: 'packages/nestjs-thingsboard-http-integration'
+    schedule:
+      interval: 'monthly'
+    assignees:
+      - 'emackie-eddaic'
+    reviewers:
+      - 'emackie-eddaic'
+    commit-message:
+      prefix: 'feat'
+      prefix-development: 'chore'
+      include: 'scope'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']

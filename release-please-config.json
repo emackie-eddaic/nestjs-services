@@ -2,6 +2,7 @@
   "packages": {
     "packages/nestjs-cacheable": {},
     "packages/nestjs-google-maps": {},
-    "packages/nestjs-maxmind-geoip2": {}
+    "packages/nestjs-maxmind-geoip2": {},
+    "packages/nestjs-thingsboard-http-integration": {}
   }
 }
