@@ -2,10 +2,16 @@
   "extends": "./tsconfig.base.json",
   "references": [
     {
-      "path": "packages/cacheable"
+      "path": "packages/nestjs-cacheable"
     },
     {
-      "path": "packages/google-maps"
+      "path": "packages/nestjs-google-maps"
+    },
+    {
+      "path": "packages/nestjs-maxmind-geoip2"
+    },
+    {
+      "path": "packages/nestjs-thingsboard-http-integration"
     }
   ]
 }
