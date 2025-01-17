@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v3.4.1...nestjs-maxmind-geoip2-v3.5.0) (2025-01-17)
+
+
+### Features
+
+* improve local package detection ([3cf74fa](https://github.com/emackie-eddaic/nestjs-services/commit/3cf74faa763082c01a7e711dff0d7b3e499f97c1))
+
 ## [3.4.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v3.4.0...nestjs-maxmind-geoip2-v3.4.1) (2025-01-16)
 
 
