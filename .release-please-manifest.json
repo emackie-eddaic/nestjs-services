@@ -2,5 +2,5 @@
   "packages/nestjs-cacheable": "3.4.0",
   "packages/nestjs-google-maps": "3.5.0",
   "packages/nestjs-maxmind-geoip2": "3.5.0",
-  "packages/nestjs-thingsboard-http-integration": "1.3.0"
+  "packages/nestjs-thingsboard-http-integration": "1.4.0"
 }
