@@ -10,7 +10,7 @@
   "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
-    "@nestjs/testing": "10.4.15",
+    "@nestjs/testing": "11.0.11",
     "@types/jest": "29.5.14",
     "@types/node": "22.13.8",
     "@typescript-eslint/eslint-plugin": "8.25.0",
