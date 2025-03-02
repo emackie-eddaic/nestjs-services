@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-maxmind-geoip2",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "NestJS Module for MaxMind GeoIP2",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
