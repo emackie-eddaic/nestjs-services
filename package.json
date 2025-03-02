@@ -2,7 +2,7 @@
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "description": "Monorepo for a variety of NestJS services for easy configuration in NestJS",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "license": "ISC",
   "name": "nestjs-services",
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@nestjs/testing": "10.4.15",
     "@types/jest": "29.5.14",
-    "@types/node": "20.17.16",
+    "@types/node": "22.13.8",
     "@typescript-eslint/eslint-plugin": "8.25.0",
     "@typescript-eslint/parser": "8.25.0",
     "eslint": "9.21.0",
