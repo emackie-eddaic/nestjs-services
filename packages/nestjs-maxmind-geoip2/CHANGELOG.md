@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v3.5.0...nestjs-maxmind-geoip2-v4.0.0) (2025-03-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** update `nestjs` to `v11`
+* **deps:** update to `node` to `v22` ([#35](https://github.com/emackie-eddaic/nestjs-services/issues/35))
+
+### Features
+
+* **deps:** bump `@maxmind/geoip2-node` to `6.0.0` ([d563a46](https://github.com/emackie-eddaic/nestjs-services/commit/d563a460dd993a612572a8eb585619a1ff8f95d0))
+* **deps:** update `nestjs` to `v11` ([d563a46](https://github.com/emackie-eddaic/nestjs-services/commit/d563a460dd993a612572a8eb585619a1ff8f95d0))
+* **deps:** update to `node` to `v22` ([#35](https://github.com/emackie-eddaic/nestjs-services/issues/35)) ([d563a46](https://github.com/emackie-eddaic/nestjs-services/commit/d563a460dd993a612572a8eb585619a1ff8f95d0))
+
 ## [3.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v3.4.1...nestjs-maxmind-geoip2-v3.5.0) (2025-01-17)
 
 
