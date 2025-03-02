@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v1.4.0...nestjs-thingsboard-http-integration-v1.5.0) (2025-03-02)
+
+
+### Features
+
+* **deps:** bump rxjs from 7.8.1 to 7.8.2 ([#32](https://github.com/emackie-eddaic/nestjs-services/issues/32)) ([09a693a](https://github.com/emackie-eddaic/nestjs-services/commit/09a693a475dfc7e9e78785c21753fa6fc49aea95))
+
 ## [1.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v1.3.0...nestjs-thingsboard-http-integration-v1.4.0) (2025-02-01)
 
 
