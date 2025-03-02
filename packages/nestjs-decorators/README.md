@@ -29,7 +29,7 @@ npm install @eddaic/nestjs-decorators
 
 ### `ParseBigIntPipe`
 
-Pipe parameters as bigint values, raising `BadRequestException` if unable to tranform.
+Pipe parameters as bigint values. A `BadRequestException` is thrown if unable to tranform.
 
 ```typescript
 import { ParseBigIntPipe } from '@eddaic/nestjs-decorators';
