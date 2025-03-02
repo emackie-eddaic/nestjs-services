@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-decorators",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Additional decorators intended for use with NestJS framework.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
