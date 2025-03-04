@@ -20,7 +20,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@eddaic/nestjs-cacheable": "3.4.0",
+    "@eddaic/nestjs-cacheable": "*",
     "@nestjs/axios": "4.0.0",
     "@nestjs/common": "11.0.11",
     "rxjs": "7.8.2"
