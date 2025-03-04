@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.0.0...nestjs-thingsboard-http-integration-v2.1.0) (2025-03-04)
+
+
+### Features
+
+* **deps:** bump `@eddaic/nestjs-cacheable` to `*` ([856609e](https://github.com/emackie-eddaic/nestjs-services/commit/856609e91752804bcfaa5593d8bcc62873042c40))
+
 ## [2.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v1.5.0...nestjs-thingsboard-http-integration-v2.0.0) (2025-03-02)
 
 

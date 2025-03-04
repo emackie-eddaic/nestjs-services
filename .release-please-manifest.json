@@ -3,5 +3,5 @@
   "packages/nestjs-decorators": "1.10.0",
   "packages/nestjs-google-maps": "4.0.0",
   "packages/nestjs-maxmind-geoip2": "4.0.0",
-  "packages/nestjs-thingsboard-http-integration": "2.0.0"
+  "packages/nestjs-thingsboard-http-integration": "2.1.0"
 }
