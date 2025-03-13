@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v5.0.0...nestjs-cacheable-v5.0.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* **eddaic/nestjs-cacheable:** add `lookup` function back ([6501cdd](https://github.com/emackie-eddaic/nestjs-services/commit/6501cdd865e20ec4f73b65f481e2cff82ce17a6b))
+
 ## [5.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v4.0.0...nestjs-cacheable-v5.0.0) (2025-03-13)
 
 
