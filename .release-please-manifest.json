@@ -1,5 +1,5 @@
 {
-  "packages/nestjs-cacheable": "5.0.0",
+  "packages/nestjs-cacheable": "5.0.1",
   "packages/nestjs-decorators": "2.0.0",
   "packages/nestjs-google-maps": "4.0.0",
   "packages/nestjs-maxmind-geoip2": "4.0.0",
