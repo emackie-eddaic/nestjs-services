@@ -22,7 +22,7 @@ export function transformIntArray(
   values: Array<unknown>,
   options?: TransformIntOptions,
 ): Array<number | null> {
-  return values.map(value => transformInt(value, options));
+  return values.map((value) => transformInt(value, options));
 }
 
 /**

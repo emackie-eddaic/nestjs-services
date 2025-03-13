@@ -5,7 +5,7 @@ import { SplitStringTransformOptions } from '../interface';
 export function splitString(
   value: unknown,
   options: SplitStringTransformOptions = {},
-): string[] | unknown {
+): unknown {
   const { separator = ',', limit } = options;
   if (isString(value)) {
     return value.split(separator, limit);

@@ -4,6 +4,7 @@ import {
   buildMessage,
   isNumber,
   isNumberString,
+  isString,
 } from 'class-validator';
 import { tryBigInt } from '../util';
 
@@ -17,7 +18,7 @@ export function isBigInt(value: unknown): boolean {
     return true;
   } else if (isNumber(value, { maxDecimalPlaces: 0 })) {
     return true;
-  } else if (isNumberString(value)) {
+  } else if (isString(value) && isNumberString(value)) {
     return tryBigInt(`${value}`);
   } else {
     return false;
