@@ -43,9 +43,12 @@ updates:
           - 'eslint-config-prettier'
           - 'eslint-plugin-prettier'
           - 'prettier'
-      typescript-eslint:
+      eslint:
         patterns:
-          - '@typescript-eslint/*'
+          - '@eslint/*'
+          - 'eslint'
+          - 'eslint-*'
+          - 'typescript-eslint'
 
   # Cacheable
   - package-ecosystem: 'npm'
