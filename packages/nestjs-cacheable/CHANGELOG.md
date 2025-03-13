@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v4.0.0...nestjs-cacheable-v5.0.0) (2025-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eddaic/nestjs-cacheable:** remove `lookup` function and make `cacheable` instance public
+
+### Features
+
+* **eddaic/nestjs-cacheable:** remove `lookup` function and make `cacheable` instance public ([981b4d3](https://github.com/emackie-eddaic/nestjs-services/commit/981b4d37fb71bd12e3db0f1fefa454e0f45dc066))
+
 ## [4.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v3.4.0...nestjs-cacheable-v4.0.0) (2025-03-02)
 
 
