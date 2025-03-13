@@ -8,8 +8,21 @@ export function transformBigInt(
   value: unknown,
   options?: TransformIntOptions,
 ): bigint | null {
+  if (typeof value === 'bigint') {
+    return value;
+  }
   if (isBigInt(value)) {
-    return BigInt(`${value}`);
+    if (typeof value === 'bigint') {
+      return value;
+    } else if (
+      typeof value === 'string' ||
+      typeof value === 'number' ||
+      typeof value === 'boolean'
+    ) {
+      return BigInt(value);
+    } else {
+      return null;
+    }
   } else if (options?.rounding !== undefined && isNumber(value)) {
     return BigInt(round(value, options.rounding));
   } else {

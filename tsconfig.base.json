@@ -12,7 +12,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "target": "ES2021"
+    "target": "ES2023"
   },
   "exclude": ["**/**.spec.ts", "**/build/**/*"]
 }

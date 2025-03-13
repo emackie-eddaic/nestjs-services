@@ -4,7 +4,7 @@ import { ParseBigIntPipe } from './parse-big-int.pipe';
 describe('ParseBigIntPipe', () => {
   let pipe: ParseBigIntPipe;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     pipe = new ParseBigIntPipe();
   });
 
