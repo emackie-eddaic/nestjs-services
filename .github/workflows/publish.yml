@@ -19,6 +19,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm install --ignore-scripts
       # Build nestjs-cacheable as it has dependencies
+      - run: npm run build --workspace packages/nestjs-cacheable
       - run: npm run build --workspace packages/${{ inputs.package }}
       - run: cp LICENSE packages/${{ inputs.package }}/LICENSE
       - run: cp packages/${{ inputs.package }}/README.md packages/${{ inputs.package }}/build/README.md
