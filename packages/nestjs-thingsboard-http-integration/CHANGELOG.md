@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.2.0...nestjs-thingsboard-http-integration-v2.2.1) (2025-03-28)
+
+
+### Bug Fixes
+
+* run build ([88c8c97](https://github.com/emackie-eddaic/nestjs-services/commit/88c8c97cff5deec54acd0151696cec02df8aa94c))
+
 ## [2.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.1.0...nestjs-thingsboard-http-integration-v2.2.0) (2025-03-28)
 
 
