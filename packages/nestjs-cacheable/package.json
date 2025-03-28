@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-cacheable",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Cacheable module for DNS caching.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
