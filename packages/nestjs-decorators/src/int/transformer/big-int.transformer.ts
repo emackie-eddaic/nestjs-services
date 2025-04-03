@@ -32,7 +32,7 @@ export function transformBigInt(
 
 /**
  * Transform value into bigint using specified options. If the value
- * converted into bigint, null is returned.
+ * cannot be converted into bigint, null is returned.
  *
  * Otherwise a the value will be returned rounded as necessary
  * using the specified rounding policy.

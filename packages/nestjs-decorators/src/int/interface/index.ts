@@ -8,8 +8,8 @@ export interface TransformIntOptions extends TransformOptions {
   each?: boolean;
   /**
    * Rounding policy applied to encountered decimal numbers. If not
-   * specified, no rounding policy is used, and decimals will be
-   * returned as null.
+   * specified, no rounding policy is used, and decimals values will
+   * be returned as null.
    */
   rounding?: RoundingPolicy;
 }

@@ -9,7 +9,7 @@ import {
 import { tryBigInt } from '../util';
 
 /**
- * Checks if the value is a bigint or can be parsed to a bigint.
+ * Checks if the value is a bigint or can be converted to a bigint.
  * @param value
  * @returns
  */
@@ -26,7 +26,7 @@ export function isBigInt(value: unknown): boolean {
 }
 
 /**
- * Checks if value is a bigint.
+ * Checks if the value is a bigint or can be converted to a bigint.
  * @param options
  * @returns
  */
