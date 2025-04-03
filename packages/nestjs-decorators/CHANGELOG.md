@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.1.1...nestjs-decorators-v2.1.2) (2025-04-03)
+
+
+### Bug Fixes
+
+* **packages/nestjs-decorator:** improvements to docs ([c17eeaa](https://github.com/emackie-eddaic/nestjs-services/commit/c17eeaac2ae71950d95802cbf9852111b44e5378))
+
 ## [2.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.1.0...nestjs-decorators-v2.1.1) (2025-03-28)
 
 
