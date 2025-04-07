@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v5.1.1...nestjs-cacheable-v5.2.0) (2025-04-07)
+
+
+### Features
+
+* **packages/nestjs-cacheable:** bump allowed nestjs versions ([f6e7042](https://github.com/emackie-eddaic/nestjs-services/commit/f6e7042a4e94eff81faffee526255e0312ea51ae))
+
 ## [5.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v5.1.0...nestjs-cacheable-v5.1.1) (2025-03-28)
 
 
