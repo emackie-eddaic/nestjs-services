@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v4.1.1...nestjs-google-maps-v4.2.0) (2025-04-07)
+
+
+### Features
+
+* **deps:** bump @googlemaps/google-maps-services-js from 3.4.0 to 3.4.1 ([#54](https://github.com/emackie-eddaic/nestjs-services/issues/54)) ([38b47ab](https://github.com/emackie-eddaic/nestjs-services/commit/38b47ab5fa34390e6e182d4f5588b13ff569b931))
+* **packages/nestjs-google-maps:** support `elevation` method ([#56](https://github.com/emackie-eddaic/nestjs-services/issues/56)) ([9da8230](https://github.com/emackie-eddaic/nestjs-services/commit/9da823008c26e445189da407bfc45ae557ba39eb))
+
 ## [4.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v4.1.0...nestjs-google-maps-v4.1.1) (2025-03-28)
 
 
