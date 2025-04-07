@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.1.1...nestjs-decorators-v2.2.0) (2025-04-07)
+
+
+### Features
+
+* **deps:** bump @nestjs/swagger from 11.0.6 to 11.1.0 ([#53](https://github.com/emackie-eddaic/nestjs-services/issues/53)) ([ab98db1](https://github.com/emackie-eddaic/nestjs-services/commit/ab98db1bb87bd8e4f5820e35da255a1afbdc491e))
+
+
+### Bug Fixes
+
+* **packages/nestjs-decorator:** improvements to docs ([c17eeaa](https://github.com/emackie-eddaic/nestjs-services/commit/c17eeaac2ae71950d95802cbf9852111b44e5378))
+
 ## [2.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.1.0...nestjs-decorators-v2.1.1) (2025-03-28)
 
 
