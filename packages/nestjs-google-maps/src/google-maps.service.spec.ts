@@ -22,6 +22,18 @@ describe('GoogleMapsService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('elevation', () => {
+    it('should return GoogleMapService.elevation.data', async () => {
+      const elevationSpy = jest
+        .spyOn(service.client, 'elevation')
+        .mockResolvedValue({ data: 'test' } as never);
+      expect(
+        await service.elevation({ locations: [{ latitude: 0, longitude: 0 }] }),
+      ).toEqual('test');
+      expect(elevationSpy).toHaveBeenCalled();
+    });
+  });
+
   describe('geolocate', () => {
     it('should return GoogleMapService.geolocate.data', async () => {
       const geolocateSpy = jest

@@ -1,9 +1,12 @@
 import {
   Client,
+  ElevationResponseData,
   GeocodeResult,
   GeolocateResponseData,
   Place,
+  PositionalElevationParams,
   RequestParams,
+  SampledPathElevationParams,
   TimeZoneResponseData,
 } from '@googlemaps/google-maps-services-js';
 import { Inject, Injectable } from '@nestjs/common';
@@ -30,6 +33,15 @@ export class GoogleMapsService {
     const { config, params } = configuration;
     this.params = params;
     this.client = new Client(config);
+  }
+
+  async elevation(
+    params: PositionalElevationParams | SampledPathElevationParams,
+  ): Promise<ElevationResponseData> {
+    const { data } = await this.client.elevation({
+      params: { ...this.params, ...params },
+    });
+    return data;
   }
 
   /**
