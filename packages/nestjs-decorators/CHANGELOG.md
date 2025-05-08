@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.2.0...nestjs-decorators-v2.3.0) (2025-05-08)
+
+
+### Features
+
+* **deps:** bump @nestjs/swagger from 11.1.1 to 11.2.0 ([#66](https://github.com/emackie-eddaic/nestjs-services/issues/66)) ([eff750f](https://github.com/emackie-eddaic/nestjs-services/commit/eff750f8626ddc5b6a33beabba5241f777a4b197))
+* **packages/nestjs-decorators:** add `ApiPropertyUri` decorator ([1143eea](https://github.com/emackie-eddaic/nestjs-services/commit/1143eeaccf2bf2e93391b3a2b81df7ff0c1d5dcb))
+
 ## [2.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.1.1...nestjs-decorators-v2.2.0) (2025-04-07)
 
 
