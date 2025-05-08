@@ -67,6 +67,23 @@ updates:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
 
+  # Decorators
+  - package-ecosystem: 'npm'
+    directory: 'packages/nestjs-decorators'
+    schedule:
+      interval: 'monthly'
+    assignees:
+      - 'emackie-eddaic'
+    reviewers:
+      - 'emackie-eddaic'
+    commit-message:
+      prefix: 'feat'
+      prefix-development: 'chore'
+      include: 'scope'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
   # Google Maps
   - package-ecosystem: 'npm'
     directory: 'packages/nestjs-google-maps'
