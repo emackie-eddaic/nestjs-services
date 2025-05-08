@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.3.0...nestjs-decorators-v2.4.0) (2025-05-08)
+
+
+### Features
+
+* **packages/nestjs-decorators:** add `GetIp` decorator ([756fb9d](https://github.com/emackie-eddaic/nestjs-services/commit/756fb9dd7788acf66a5204e1025972febb1650b2))
+
 ## [2.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.2.0...nestjs-decorators-v2.3.0) (2025-05-08)
 
 
