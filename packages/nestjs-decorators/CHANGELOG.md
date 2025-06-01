@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.4.0...nestjs-decorators-v2.5.0) (2025-06-01)
+
+
+### Features
+
+* **deps:** bump class-validator from 0.14.1 to 0.14.2 ([#73](https://github.com/emackie-eddaic/nestjs-services/issues/73)) ([0be672b](https://github.com/emackie-eddaic/nestjs-services/commit/0be672b818e6b59a3cf33af00829a40dd4aa8fd3))
+
 ## [2.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.3.0...nestjs-decorators-v2.4.0) (2025-05-08)
 
 
