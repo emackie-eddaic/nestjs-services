@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v5.2.0...nestjs-cacheable-v6.0.0) (2025-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **packages/nestjs-cacheable:** remove nestjs v10 support
+
+### Features
+
+* **packages/nestjs-cacheable:** remove nestjs v10 support ([894ba16](https://github.com/emackie-eddaic/nestjs-services/commit/894ba16c9a83ba19a59a3f6d97089db17594b5de))
+
 ## [5.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v5.1.1...nestjs-cacheable-v5.2.0) (2025-04-07)
 
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v4.2.0...nestjs-google-maps-v5.0.0) (2025-06-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nestjs-google-maps:** remove nestjs v10 support
+
+### Features
+
+* **nestjs-google-maps:** remove nestjs v10 support ([c4c674b](https://github.com/emackie-eddaic/nestjs-services/commit/c4c674b61d5bf9c5cb5c3f207f9985a36e62fbad))
+
 ## [4.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v4.1.1...nestjs-google-maps-v4.2.0) (2025-04-07)
 
 
