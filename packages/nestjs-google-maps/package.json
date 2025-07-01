@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.4.1",
-    "@nestjs/common": "^11.1.2"
+    "@nestjs/common": "^11.1.3"
   }
 }
