@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.5.0...nestjs-decorators-v2.6.0) (2025-07-01)
+
+
+### Features
+
+* **deps:** bump the nestjs group with 2 updates ([#79](https://github.com/emackie-eddaic/nestjs-services/issues/79)) ([d119eed](https://github.com/emackie-eddaic/nestjs-services/commit/d119eeddc2bde9d64f70d3b2e59fae1387499227))
+
 ## [2.5.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.4.0...nestjs-decorators-v2.5.0) (2025-06-01)
 
 
