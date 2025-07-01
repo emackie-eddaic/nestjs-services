@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.1.1...nestjs-maxmind-geoip2-v4.2.0) (2025-07-01)
+
+
+### Features
+
+* **deps:** bump the nestjs group with 2 updates ([#79](https://github.com/emackie-eddaic/nestjs-services/issues/79)) ([d119eed](https://github.com/emackie-eddaic/nestjs-services/commit/d119eeddc2bde9d64f70d3b2e59fae1387499227))
+
 ## [4.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.1.0...nestjs-maxmind-geoip2-v4.1.1) (2025-03-28)
 
 

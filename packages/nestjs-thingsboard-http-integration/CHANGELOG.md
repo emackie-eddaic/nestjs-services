@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.2.1...nestjs-thingsboard-http-integration-v2.3.0) (2025-07-01)
+
+
+### Features
+
+* **deps:** bump the nestjs group with 2 updates ([#79](https://github.com/emackie-eddaic/nestjs-services/issues/79)) ([d119eed](https://github.com/emackie-eddaic/nestjs-services/commit/d119eeddc2bde9d64f70d3b2e59fae1387499227))
+
 ## [2.2.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.2.0...nestjs-thingsboard-http-integration-v2.2.1) (2025-03-28)
 
 
