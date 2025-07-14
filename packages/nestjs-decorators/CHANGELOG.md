@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.7.0...nestjs-decorators-v2.7.1) (2025-07-14)
+
+
+### Bug Fixes
+
+* **nestjs-decorators:** missing export ([bd18463](https://github.com/emackie-eddaic/nestjs-services/commit/bd18463404712d4d32aa5ed761f665bacf070bda))
+
 ## [2.7.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.6.0...nestjs-decorators-v2.7.0) (2025-07-14)
 
 
