@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.6.0...nestjs-decorators-v2.7.0) (2025-07-14)
+
+
+### Features
+
+* **nestjs-decorators:** add `toNull` decorator ([86ed210](https://github.com/emackie-eddaic/nestjs-services/commit/86ed2104dc94bc3231ef43d755ea52fdeea0bffa))
+
 ## [2.6.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.5.0...nestjs-decorators-v2.6.0) (2025-07-01)
 
 
