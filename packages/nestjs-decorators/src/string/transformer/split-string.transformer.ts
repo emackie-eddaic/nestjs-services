@@ -1,5 +1,4 @@
 import { Transform, TransformOptions } from 'class-transformer';
-import { isString } from 'class-validator';
 
 export interface SplitStringTransformOptions extends TransformOptions {
   /**
@@ -18,10 +17,8 @@ export function splitString(
   options: SplitStringTransformOptions = {},
 ): unknown {
   const { separator = ',', limit } = options;
-  if (isString(value)) {
-    return value
-      .split(separator, limit)
-      .map((string) => (string.toLowerCase() === 'null' ? null : string));
+  if (typeof value === 'string') {
+    return value.split(separator, limit);
   } else {
     return value;
   }

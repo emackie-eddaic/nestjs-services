@@ -1,5 +1,11 @@
 import { Transform } from 'class-transformer';
 
+/**
+ * Converts falsy values `null`, `undefined`, `0`, `false` and empty strings
+ * to false. Otherwise the value is returned as true
+ * @param value
+ * @returns
+ */
 export function toBoolean(value: unknown): boolean {
   if (value === null || value === undefined) {
     return false;
