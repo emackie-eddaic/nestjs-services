@@ -1,6 +1,17 @@
-import { Transform } from 'class-transformer';
+import { Transform, TransformOptions } from 'class-transformer';
 import { isString } from 'class-validator';
-import { SplitStringTransformOptions } from '../interface';
+
+export interface SplitStringTransformOptions extends TransformOptions {
+  /**
+   * A string that identifies character or characters to use in separating the string. If omitted, a single-element array containing the entire string is returned.
+   * @default ,
+   */
+  separator?: string | RegExp;
+  /**
+   * A value used to limit the number of elements returned in the array.
+   */
+  limit?: number;
+}
 
 export function splitString(
   value: unknown,
@@ -8,7 +19,9 @@ export function splitString(
 ): unknown {
   const { separator = ',', limit } = options;
   if (isString(value)) {
-    return value.split(separator, limit);
+    return value
+      .split(separator, limit)
+      .map((string) => (string.toLowerCase() === 'null' ? null : string));
   } else {
     return value;
   }

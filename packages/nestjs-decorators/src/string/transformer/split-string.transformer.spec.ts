@@ -30,4 +30,9 @@ describe('splitString', () => {
     const value = '1, 2';
     expect(splitString(value)).toEqual(['1', ' 2']);
   });
+
+  it('should convert null values', () => {
+    const value = '1,null';
+    expect(splitString(value)).toEqual(['1', null]);
+  });
 });

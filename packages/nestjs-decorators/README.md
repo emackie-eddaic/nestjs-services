@@ -21,6 +21,8 @@ npm install @eddaic/nestjs-decorators
 - `IsBigInt`
 - `ParseBigIntPipe`
 - `SplitString`
+- `ToBoolean`
+- `ToLower`
 - `TransformBigInt`
 - `TransformInt`
 - `Trim`
