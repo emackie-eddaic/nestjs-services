@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v5.1.0...nestjs-google-maps-v5.2.0) (2025-10-14)
+
+
+### Features
+
+* **deps:** bump packages ([6664bbc](https://github.com/emackie-eddaic/nestjs-services/commit/6664bbc9ca90e6b4934859b6094d60b57cfbdf8e))
+
 ## [5.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v5.0.0...nestjs-google-maps-v5.1.0) (2025-07-01)
 
 
