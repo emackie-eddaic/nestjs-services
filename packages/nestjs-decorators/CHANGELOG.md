@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.8.0...nestjs-decorators-v2.9.0) (2025-12-05)
+
+
+### Features
+
+* **deps:** resolve vulnerabilities ([#114](https://github.com/emackie-eddaic/nestjs-services/issues/114)) ([9294a07](https://github.com/emackie-eddaic/nestjs-services/commit/9294a076793c2e5107b5a8d98e93acf334cccb10))
+
 ## [2.8.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.7.1...nestjs-decorators-v2.8.0) (2025-10-14)
 
 
