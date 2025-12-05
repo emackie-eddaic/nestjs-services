@@ -18,7 +18,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@nestjs/common": "^11.1.6",
+    "@nestjs/common": "^11.1.9",
     "cacheable-lookup": "^6.1.0"
   }
 }
