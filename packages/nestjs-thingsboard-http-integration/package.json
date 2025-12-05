@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-thingsboard-http-integration",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "NestJS Module for ThingsBoard HTTP Integration",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
