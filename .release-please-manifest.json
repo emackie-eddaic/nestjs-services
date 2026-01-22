@@ -1,7 +1,7 @@
 {
-  "packages/nestjs-cacheable": "6.3.0",
-  "packages/nestjs-decorators": "2.9.0",
-  "packages/nestjs-google-maps": "5.3.0",
-  "packages/nestjs-maxmind-geoip2": "4.4.0",
-  "packages/nestjs-thingsboard-http-integration": "2.5.0"
+  "packages/nestjs-cacheable": "6.4.0",
+  "packages/nestjs-decorators": "2.10.0",
+  "packages/nestjs-google-maps": "5.4.0",
+  "packages/nestjs-maxmind-geoip2": "4.5.0",
+  "packages/nestjs-thingsboard-http-integration": "2.6.0"
 }

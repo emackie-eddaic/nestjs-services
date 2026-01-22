@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v6.3.0...nestjs-cacheable-v6.4.0) (2026-01-22)
+
+
+### Features
+
+* **deps:** bump `@nestjs/common` to `11.1.12` ([#119](https://github.com/emackie-eddaic/nestjs-services/issues/119)) ([a8b269b](https://github.com/emackie-eddaic/nestjs-services/commit/a8b269b698a45f5bb4cad76d9406f6b79ae6b59f))
+* **deps:** bump `@nestjs/swagger` to `11.2.5` ([a8b269b](https://github.com/emackie-eddaic/nestjs-services/commit/a8b269b698a45f5bb4cad76d9406f6b79ae6b59f))
+
 ## [6.3.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v6.2.0...nestjs-cacheable-v6.3.0) (2025-12-05)
 
 
