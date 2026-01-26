@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.4.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v5.4.0...nestjs-google-maps-v5.4.1) (2026-01-26)
+
+
+### Bug Fixes
+
+* generate build ([b475b4d](https://github.com/emackie-eddaic/nestjs-services/commit/b475b4dcb50ba2dda4e99b26f59a25e34915d027))
+
 ## [5.4.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v5.3.0...nestjs-google-maps-v5.4.0) (2026-01-22)
 
 
