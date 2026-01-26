@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.10.1...nestjs-decorators-v2.10.2) (2026-01-26)
+
+
+### Bug Fixes
+
+* generate build ([89adb36](https://github.com/emackie-eddaic/nestjs-services/commit/89adb36443c349119a06de64db12f82d91c2c9fb))
+
 ## [2.10.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-decorators-v2.10.0...nestjs-decorators-v2.10.1) (2026-01-26)
 
 
