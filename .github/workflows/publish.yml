@@ -8,9 +8,6 @@ on:
       package:
         required: true
         type: string
-    secrets:
-      node-auth-token:
-        required: true
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -28,5 +25,3 @@ jobs:
       - run: cp packages/${{ inputs.package }}/README.md packages/${{ inputs.package }}/build/README.md
       - run: jq '.main = "index.js" | del(.devDependencies) | del(.scripts) | del(.jest)' packages/${{ inputs.package }}/package.json > packages/${{ inputs.package }}/build/package.json
       - run: npm publish --access public packages/${{ inputs.package }}/build
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.node-auth-token }}

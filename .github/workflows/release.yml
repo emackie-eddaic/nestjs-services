@@ -19,5 +19,3 @@ jobs:
     uses: ./.github/workflows/publish.yml
     with:
       package: ${{ needs.get-package.outputs.package }}
-    secrets:
-      node-auth-token: ${{ secrets.NPM_PUBLISH_TOKEN }}
