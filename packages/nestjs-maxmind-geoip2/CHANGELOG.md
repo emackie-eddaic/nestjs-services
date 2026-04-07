@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.5.2...nestjs-maxmind-geoip2-v4.6.0) (2026-04-07)
+
+
+### Features
+
+* **deps:** bump `@nestjs/common` ([e9eec32](https://github.com/emackie-eddaic/nestjs-services/commit/e9eec32995c713c5ae55ed4e3c019069b5d0e05d))
+
 ## [4.5.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.5.1...nestjs-maxmind-geoip2-v4.5.2) (2026-01-26)
 
 
