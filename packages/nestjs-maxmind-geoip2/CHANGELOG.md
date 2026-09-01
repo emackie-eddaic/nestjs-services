@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.6.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.6.0...nestjs-maxmind-geoip2-v4.6.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* **deps:** support NestJS 12 across all package ([1184397](https://github.com/emackie-eddaic/nestjs-services/commit/11843975bdf5c219e760ce45bad8da0085926cab))
+* **deps:** switch to nodenext module resolution ([1184397](https://github.com/emackie-eddaic/nestjs-services/commit/11843975bdf5c219e760ce45bad8da0085926cab))
+
 ## [4.6.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.5.2...nestjs-maxmind-geoip2-v4.6.0) (2026-04-07)
 
 

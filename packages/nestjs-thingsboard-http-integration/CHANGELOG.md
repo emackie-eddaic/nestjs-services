@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.7.0...nestjs-thingsboard-http-integration-v2.7.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* **deps:** support NestJS 12 across all package ([1184397](https://github.com/emackie-eddaic/nestjs-services/commit/11843975bdf5c219e760ce45bad8da0085926cab))
+* **deps:** switch to nodenext module resolution ([1184397](https://github.com/emackie-eddaic/nestjs-services/commit/11843975bdf5c219e760ce45bad8da0085926cab))
+
 ## [2.7.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.6.2...nestjs-thingsboard-http-integration-v2.7.0) (2026-04-07)
 
 
