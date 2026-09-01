@@ -2,7 +2,7 @@
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "description": "Monorepo for a variety of NestJS services for easy configuration in NestJS",
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "license": "ISC",
   "name": "nestjs-services",
