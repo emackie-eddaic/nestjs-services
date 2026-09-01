@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@nestjs/axios": "^4.0.0",
-    "@nestjs/common": "^11.0.0",
+    "@nestjs/common": "^11.2.3",
     "rxjs": "^7.8.2"
   },
   "peerDependencies": {
