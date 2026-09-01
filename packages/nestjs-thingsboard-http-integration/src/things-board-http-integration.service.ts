@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { MODULE_OPTIONS_TOKEN } from './things-board-http-integration.module-definition';
-import {
+import type {
   ThingsBoardHttpIntegrationBody,
   ThingsBoardHttpIntegrationConfiguration,
 } from './type';

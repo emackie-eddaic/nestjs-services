@@ -18,7 +18,12 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@nestjs/common": "^11.1.18",
     "cacheable-lookup": "^6.1.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0 || ^12.0.0"
   }
 }

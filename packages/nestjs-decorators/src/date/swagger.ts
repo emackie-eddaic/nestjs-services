@@ -1,10 +1,9 @@
-import { ApiPropertyOptions } from '@nestjs/swagger';
-import { createApiPropertyDecorator } from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 
 export function ApiPropertyDate(
   options?: ApiPropertyOptions,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'string',
     format: 'date-time',
@@ -15,7 +14,7 @@ export function ApiPropertyDate(
 export function ApiPropertyDateOptional(
   options?: ApiPropertyOptions,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'string',
     format: 'date-time',

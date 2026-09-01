@@ -19,7 +19,12 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.4.2",
-    "@nestjs/common": "^11.1.18"
+    "@googlemaps/google-maps-services-js": "^3.4.2"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0 || ^12.0.0"
   }
 }

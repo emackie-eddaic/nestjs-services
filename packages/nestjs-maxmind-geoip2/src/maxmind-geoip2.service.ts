@@ -1,7 +1,7 @@
 import { WebServiceClient } from '@maxmind/geoip2-node';
 import { Inject, Injectable } from '@nestjs/common';
 import { MODULE_OPTIONS_TOKEN } from './maxmind-geoip2.module-definition';
-import { MaxmindGeoip2Configuration } from './type';
+import type { MaxmindGeoip2Configuration } from './type';
 
 @Injectable()
 export class MaxmindGeoip2Service {
