@@ -1,12 +1,9 @@
-import {
-  ApiPropertyOptions,
-  createApiPropertyDecorator,
-} from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 
 export function ApiPropertyInt(
   options?: Omit<ApiPropertyOptions, 'type' | 'format'>,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'integer',
     format: 'int',
@@ -17,7 +14,7 @@ export function ApiPropertyInt(
 export function ApiPropertyIntOptional(
   options?: Omit<ApiPropertyOptions, 'type' | 'format' | 'required'>,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'integer',
     format: 'int',
@@ -28,7 +25,7 @@ export function ApiPropertyIntOptional(
 export function ApiPropertyBigInt(
   options?: Omit<ApiPropertyOptions, 'type' | 'format'>,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'integer',
     format: 'int64',
@@ -39,7 +36,7 @@ export function ApiPropertyBigInt(
 export function ApiPropertyBigIntOptional(
   options?: Omit<ApiPropertyOptions, 'type' | 'format' | 'required'>,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     type: 'integer',
     format: 'int64',

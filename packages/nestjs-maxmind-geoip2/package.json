@@ -19,7 +19,12 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@maxmind/geoip2-node": "^6.3.4",
-    "@nestjs/common": "^11.1.18"
+    "@maxmind/geoip2-node": "^6.3.4"
+  },
+  "devDependencies": {
+    "@nestjs/common": "^11.0.0"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.0 || ^12.0.0"
   }
 }

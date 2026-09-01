@@ -5,6 +5,9 @@
       "path": "packages/nestjs-cacheable"
     },
     {
+      "path": "packages/nestjs-decorators"
+    },
+    {
       "path": "packages/nestjs-google-maps"
     },
     {

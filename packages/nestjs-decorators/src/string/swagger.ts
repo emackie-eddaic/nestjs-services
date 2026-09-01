@@ -1,10 +1,9 @@
-import { ApiPropertyOptions } from '@nestjs/swagger';
-import { createApiPropertyDecorator } from '@nestjs/swagger/dist/decorators/api-property.decorator';
+import { ApiProperty, ApiPropertyOptions } from '@nestjs/swagger';
 
 export function ApiPropertyUri(
   options?: ApiPropertyOptions,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     type: 'string',
     format: 'uri',
     ...options,
@@ -14,7 +13,7 @@ export function ApiPropertyUri(
 export function ApiPropertyUriOptional(
   options?: ApiPropertyOptions,
 ): PropertyDecorator {
-  return createApiPropertyDecorator({
+  return ApiProperty({
     ...options,
     format: 'uri',
     required: false,

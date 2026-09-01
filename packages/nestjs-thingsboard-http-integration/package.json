@@ -20,9 +20,16 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@eddaic/nestjs-cacheable": "*",
-    "@nestjs/axios": "^4.0.1",
-    "@nestjs/common": "^11.1.18",
+    "@eddaic/nestjs-cacheable": "^6.5.0"
+  },
+  "devDependencies": {
+    "@nestjs/axios": "^4.0.0",
+    "@nestjs/common": "^11.0.0",
+    "rxjs": "^7.8.2"
+  },
+  "peerDependencies": {
+    "@nestjs/axios": "^4.0.0",
+    "@nestjs/common": "^11.0.0 || ^12.0.0",
     "rxjs": "^7.8.2"
   }
 }
