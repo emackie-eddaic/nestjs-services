@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.5.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v6.5.1...nestjs-cacheable-v6.5.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **build:** trigger build ([7f35d2e](https://github.com/emackie-eddaic/nestjs-services/commit/7f35d2e8635df9d25c60304646fee01e0120e108))
+
 ## [6.5.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-cacheable-v6.5.0...nestjs-cacheable-v6.5.1) (2026-09-01)
 
 

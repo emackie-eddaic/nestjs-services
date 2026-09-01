@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.6.1...nestjs-maxmind-geoip2-v4.6.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **build:** trigger build ([7f35d2e](https://github.com/emackie-eddaic/nestjs-services/commit/7f35d2e8635df9d25c60304646fee01e0120e108))
+
 ## [4.6.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.6.0...nestjs-maxmind-geoip2-v4.6.1) (2026-09-01)
 
 
