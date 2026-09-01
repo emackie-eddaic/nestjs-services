@@ -11,7 +11,7 @@ import {
 } from '@googlemaps/google-maps-services-js';
 import { Inject, Injectable } from '@nestjs/common';
 import { MODULE_OPTIONS_TOKEN } from './google-maps.module-definition';
-import {
+import type {
   GeolocateRequestData,
   GoogleMapsConfiguration,
   PlaceDetailsRequestParams,
