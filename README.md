@@ -74,7 +74,7 @@ See [AGENTS.md](AGENTS.md) for coding-agent instructions.
 
 Every commit message must be a one-line Conventional Commit header, such as `fix(nestjs-cacheable): correct DNS lookup handling` or `feat(nestjs-google-maps): add a client method`. The scope is optional.
 
-Any code or dependency change must use `fix` or `feat` because those types trigger new versions through Release Please. This includes tests, scripts, tooling, build and CI configuration, and manifest or lockfile updates for runtime, development, or transitive dependencies. Use `fix` for corrections and maintenance, and `feat` for new functionality. Reserve `docs` for documentation-only commits; mixed code and documentation changes must use `fix` or `feat`.
+Code or runtime dependency changes must use `fix` or `feat` because those types trigger new versions through Release Please. This includes tests, scripts, tooling, build and CI configuration, and manifest or lockfile updates for runtime dependencies, including transitive dependencies. Use `fix` for corrections and maintenance, and `feat` for new functionality. Use `chore` for updates limited to development dependencies and their transitive lockfile changes; mixed development and runtime dependency updates must use `fix` or `feat`. Reserve `docs` for documentation-only commits; mixed code and documentation changes must use `fix` or `feat`.
 
 Breaking changes require explicit user permission after explaining the compatibility impact. General permission to implement or commit is insufficient. After approval, mark the header with `!`; keep the message on one line without a `BREAKING CHANGE` body or footer. Do not make an unapproved breaking change under an ordinary `fix` or `feat` header.
 
