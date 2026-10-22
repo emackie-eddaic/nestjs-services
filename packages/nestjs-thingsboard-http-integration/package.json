@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-thingsboard-http-integration",
-  "version": "2.7.2",
+  "version": "3.0.0",
   "description": "NestJS Module for ThingsBoard HTTP Integration",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
@@ -20,7 +20,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@eddaic/nestjs-cacheable": "^6.5.0"
+    "@eddaic/nestjs-cacheable": "^7.0.0"
   },
   "devDependencies": {
     "@nestjs/axios": "^4.0.0",
