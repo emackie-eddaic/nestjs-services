@@ -1,6 +1,6 @@
 # nestjs-thingsboard-http-integration
 
-Simple [NestJS](https://nestjs.com/) Module to make Thingsboard HTTP Integration upload calls.
+A [NestJS](https://nestjs.com/) module for uploading IoT telemetry through ThingsBoard HTTP integrations. It provides an injectable upload service with cached DNS lookups and supports ThingsBoard Cloud or a configured ThingsBoard base URL.
 
 ## Installation
 

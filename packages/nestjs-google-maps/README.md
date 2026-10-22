@@ -1,6 +1,6 @@
 # nestjs-google-maps
 
-Simple [NestJS](https://nestjs.com/) Module to support a [google-maps-services-js](https://github.com/googlemaps/google-maps-services-js) client.
+A [NestJS](https://nestjs.com/) module for configuring a [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client through dependency injection. It includes convenience methods for place details, reverse geocoding, geolocation, elevation, and time zones, with direct access to the underlying client.
 
 ## Installation
 

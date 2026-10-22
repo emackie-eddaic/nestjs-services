@@ -1,20 +1,25 @@
 {
   "name": "@eddaic/nestjs-thingsboard-http-integration",
   "version": "3.0.0",
-  "description": "NestJS Module for ThingsBoard HTTP Integration",
+  "description": "NestJS client for uploading IoT telemetry through ThingsBoard HTTP integrations.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git"
+    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git",
+    "directory": "packages/nestjs-thingsboard-http-integration"
   },
   "keywords": [
     "nestjs",
     "module",
     "thingsboard",
     "http",
-    "integration"
+    "integration",
+    "iot",
+    "telemetry",
+    "thingsboard-cloud",
+    "http-integration"
   ],
   "scripts": {
     "build": "tsc --build"
@@ -31,5 +36,6 @@
     "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^11.0.0 || ^12.0.0",
     "rxjs": "^7.8.2"
-  }
+  },
+  "homepage": "https://github.com/emackie-eddaic/nestjs-services/tree/main/packages/nestjs-thingsboard-http-integration#readme"
 }

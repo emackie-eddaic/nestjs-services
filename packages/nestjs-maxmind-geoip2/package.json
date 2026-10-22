@@ -1,19 +1,24 @@
 {
   "name": "@eddaic/nestjs-maxmind-geoip2",
   "version": "5.0.0",
-  "description": "NestJS Module for MaxMind GeoIP2",
+  "description": "NestJS client for MaxMind GeoIP2 web services and IP geolocation.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git"
+    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git",
+    "directory": "packages/nestjs-maxmind-geoip2"
   },
   "keywords": [
     "nestjs",
     "module",
     "maxmind",
-    "geoip2"
+    "geoip2",
+    "geoip",
+    "ip-geolocation",
+    "geolocation",
+    "ip-lookup"
   ],
   "scripts": {
     "build": "tsc"
@@ -26,5 +31,6 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0 || ^12.0.0"
-  }
+  },
+  "homepage": "https://github.com/emackie-eddaic/nestjs-services/tree/main/packages/nestjs-maxmind-geoip2#readme"
 }

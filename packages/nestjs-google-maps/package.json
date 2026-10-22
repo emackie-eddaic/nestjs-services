@@ -1,19 +1,26 @@
 {
   "name": "@eddaic/nestjs-google-maps",
   "version": "6.0.0",
-  "description": "NestJS Module for Google Maps APIs",
+  "description": "NestJS Google Maps API client with convenience methods for places, reverse geocoding, geolocation, elevation, and time zones.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git"
+    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git",
+    "directory": "packages/nestjs-google-maps"
   },
   "keywords": [
     "nestjs",
     "module",
     "google",
-    "maps"
+    "maps",
+    "google-maps",
+    "geocoding",
+    "reverse-geocoding",
+    "geolocation",
+    "places",
+    "google-maps-services-js"
   ],
   "scripts": {
     "build": "tsc"
@@ -26,5 +33,6 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0 || ^12.0.0"
-  }
+  },
+  "homepage": "https://github.com/emackie-eddaic/nestjs-services/tree/main/packages/nestjs-google-maps#readme"
 }

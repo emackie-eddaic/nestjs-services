@@ -1,6 +1,6 @@
 # nestjs-maxmind-geoip2
 
-Simple [NestJS](https://nestjs.com/) Module to support a [@maxmind/geoip2-node](https://github.com/maxmind/GeoIP2-node) client.
+A [NestJS](https://nestjs.com/) module for IP geolocation through [MaxMind GeoIP2 web services](https://github.com/maxmind/GeoIP2-node). It provides an injectable client with convenience methods for city, country, and insights lookups.
 
 ## Installation
 
