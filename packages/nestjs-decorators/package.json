@@ -1,13 +1,14 @@
 {
   "name": "@eddaic/nestjs-decorators",
-  "version": "2.11.2",
-  "description": "Additional decorators intended for use with NestJS framework.",
+  "version": "3.0.0",
+  "description": "NestJS DTO decorators, validation pipes, and transformers with Swagger/OpenAPI support.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git"
+    "url": "git+https://github.com/emackie-eddaic/nestjs-services.git",
+    "directory": "packages/nestjs-decorators"
   },
   "keywords": [
     "bigint",
@@ -15,7 +16,13 @@
     "decorator",
     "nestjs",
     "node",
-    "swagger"
+    "swagger",
+    "dto",
+    "validation",
+    "class-validator",
+    "class-transformer",
+    "openapi",
+    "pipes"
   ],
   "scripts": {
     "build": "tsc"
@@ -33,5 +40,6 @@
     "class-validator": "^0.14.3"
   },
   "type": "commonjs",
-  "types": "build/index.d.ts"
+  "types": "build/index.d.ts",
+  "homepage": "https://github.com/emackie-eddaic/nestjs-services/tree/main/packages/nestjs-decorators#readme"
 }

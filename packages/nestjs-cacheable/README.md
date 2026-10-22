@@ -1,6 +1,6 @@
 # nestjs-cacheable
 
-Simple [NestJS](https://nestjs.com/) Module to add DNS cache using [szmarczak/cacheable-lookup](https://github.com/szmarczak/cacheable-lookup#readme).
+A [NestJS](https://nestjs.com/) module for DNS caching with [cacheable-lookup](https://github.com/szmarczak/cacheable-lookup#readme). It provides an injectable service exposing a cached DNS lookup function for HTTP clients.
 
 ## Compatibility
 

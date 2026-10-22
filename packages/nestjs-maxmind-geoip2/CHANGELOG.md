@@ -1,5 +1,26 @@
 # Changelog
 
+## [5.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.6.2...nestjs-maxmind-geoip2-v5.0.0) (2026-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nestjs-decorators:** remove GetIp decorator
+* **nestjs-decorators:** reject invalid and unsafe integer conversions
+
+### Features
+
+* **nestjs-decorators:** remove GetIp decorator ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+
+
+### Bug Fixes
+
+* **build:** compile Cacheable before ThingsBoard ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **deps:** patch vulnerable transitive dependencies ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **deps:** patch vulnerable transitive dependencies ([#159](https://github.com/emackie-eddaic/nestjs-services/issues/159)) ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **nestjs-decorators:** reject invalid and unsafe integer conversions ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **packaging:** include licenses and verify package artifacts ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+
 ## [4.6.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-maxmind-geoip2-v4.6.1...nestjs-maxmind-geoip2-v4.6.2) (2026-09-01)
 
 

@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.7.2...nestjs-thingsboard-http-integration-v3.0.0) (2026-10-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nestjs-decorators:** remove GetIp decorator
+* **nestjs-decorators:** reject invalid and unsafe integer conversions
+
+### Features
+
+* **nestjs-decorators:** remove GetIp decorator ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+
+
+### Bug Fixes
+
+* **build:** compile Cacheable before ThingsBoard ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **deps:** patch vulnerable transitive dependencies ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **deps:** patch vulnerable transitive dependencies ([#159](https://github.com/emackie-eddaic/nestjs-services/issues/159)) ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **nestjs-decorators:** reject invalid and unsafe integer conversions ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+* **packaging:** include licenses and verify package artifacts ([6fe4057](https://github.com/emackie-eddaic/nestjs-services/commit/6fe405766b0b5647ca94148b60c650e3f25ad54a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eddaic/nestjs-cacheable bumped from ^6.5.0 to ^7.0.0
+
 ## [2.7.2](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v2.7.1...nestjs-thingsboard-http-integration-v2.7.2) (2026-09-01)
 
 
