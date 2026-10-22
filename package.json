@@ -59,7 +59,8 @@
     "lint": "eslint \"packages/**/*.ts\"",
     "lint:fix": "eslint \"packages/**/*.ts\" --fix",
     "test": "jest",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "test:packages": "node scripts/check-packages.mjs"
   },
   "workspaces": [
     "packages/*"
