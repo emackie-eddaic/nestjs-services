@@ -58,6 +58,10 @@ See [AGENTS.md](AGENTS.md) for coding-agent instructions.
 
 ## Releases
 
-Use one-line Conventional Commit messages, with `!` for breaking changes, for example `fix(nestjs-decorators)!: reject invalid integer inputs`.
+Every commit message must be a one-line Conventional Commit header, such as `fix(nestjs-cacheable): correct DNS lookup handling` or `feat(nestjs-google-maps): add a client method`. The scope is optional.
+
+Any code or dependency change must use `fix` or `feat` because those types trigger new versions through Release Please. This includes tests, scripts, tooling, build and CI configuration, and manifest or lockfile updates for runtime, development, or transitive dependencies. Use `fix` for corrections and maintenance, and `feat` for new functionality. Reserve `docs` for documentation-only commits; mixed code and documentation changes must use `fix` or `feat`.
+
+Breaking changes require explicit user permission after explaining the compatibility impact. General permission to implement or commit is insufficient. After approval, mark the header with `!`; keep the message on one line without a `BREAKING CHANGE` body or footer. Do not make an unapproved breaking change under an ordinary `fix` or `feat` header.
 
 Release Please manages package versions, changelogs, and release PRs. The release workflow invokes the publish workflow, which installs from the lockfile, builds, verifies tarballs, prepares the selected package, and publishes it. Make packaging changes in `scripts/prepare-package.mjs` so verification and publishing use the same layout.
