@@ -11,17 +11,16 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      PACKAGE: ${{ inputs.package }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           registry-url: https://registry.npmjs.org
-      - run: npm install --ignore-scripts
-      # Build nestjs-cacheable as it has dependencies
-      - run: npm run build --workspace packages/nestjs-cacheable
-      - run: npm run build --workspace packages/${{ inputs.package }}
-      - run: cp LICENSE packages/${{ inputs.package }}/LICENSE
-      - run: cp packages/${{ inputs.package }}/README.md packages/${{ inputs.package }}/build/README.md
-      - run: jq '.main = "index.js" | del(.devDependencies) | del(.scripts) | del(.jest)' packages/${{ inputs.package }}/package.json > packages/${{ inputs.package }}/build/package.json
-      - run: npm publish --access public packages/${{ inputs.package }}/build
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: npm run test:packages
+      - run: node scripts/prepare-package.mjs "$PACKAGE"
+      - run: npm publish --access public "./packages/$PACKAGE/build"

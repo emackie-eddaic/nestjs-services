@@ -68,21 +68,25 @@ describe('GoogleMapsService', () => {
     it('should return GoogleMapService.placeDetails from result', async () => {
       const reverseGeocodeSpy = jest
         .spyOn(service, 'reverseGeocode')
-        .mockResolvedValue(['test'] as never);
+        .mockResolvedValue([{ place_id: 'test-place' }] as never);
       const placeDetailsSpy = jest
         .spyOn(service, 'placeDetails')
         .mockResolvedValue('test' as never);
       expect(await service.reverseGeocodeAsPlace({})).toEqual('test');
       expect(reverseGeocodeSpy).toHaveBeenCalled();
-      expect(placeDetailsSpy).toHaveBeenCalled();
+      expect(placeDetailsSpy).toHaveBeenCalledWith({ place_id: 'test-place' });
     });
 
     it('should throw error if no results', async () => {
       const reverseGeocodeSpy = jest
         .spyOn(service, 'reverseGeocode')
-        .mockResolvedValue({ results: [] } as never);
-      await expect(service.reverseGeocodeAsPlace({})).rejects.toThrow(Error);
+        .mockResolvedValue([]);
+      const placeDetailsSpy = jest.spyOn(service, 'placeDetails');
+      await expect(service.reverseGeocodeAsPlace({})).rejects.toThrow(
+        'No places returned',
+      );
       expect(reverseGeocodeSpy).toHaveBeenCalled();
+      expect(placeDetailsSpy).not.toHaveBeenCalled();
     });
   });
 
