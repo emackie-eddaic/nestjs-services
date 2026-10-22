@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-decorators",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "NestJS DTO decorators, validation pipes, and transformers with Swagger/OpenAPI support.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",

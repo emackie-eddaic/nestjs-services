@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-google-maps",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "NestJS Google Maps API client with convenience methods for places, reverse geocoding, geolocation, elevation, and time zones.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",

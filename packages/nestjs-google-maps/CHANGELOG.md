@@ -1,5 +1,17 @@
 # Changelog
 
+## [6.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v6.0.0...nestjs-google-maps-v6.1.0) (2026-10-22)
+
+
+### Features
+
+* support NestJS 12 with explicit CommonJS packaging and ESM consumer checks ([#161](https://github.com/emackie-eddaic/nestjs-services/issues/161)) ([88dba7a](https://github.com/emackie-eddaic/nestjs-services/commit/88dba7ad29768ed70642510e7b9b4030b91ff8d9))
+
+
+### Bug Fixes
+
+* improve npm package discoverability and documentation ([15ffa18](https://github.com/emackie-eddaic/nestjs-services/commit/15ffa189fd1f76438a4c5c08c84275c3505bd3ca))
+
 ## [6.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v5.5.2...nestjs-google-maps-v6.0.0) (2026-10-22)
 
 
