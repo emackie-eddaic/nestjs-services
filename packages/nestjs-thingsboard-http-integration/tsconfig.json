@@ -4,5 +4,10 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "build"
-  }
+  },
+  "references": [
+    {
+      "path": "../nestjs-cacheable"
+    }
+  ]
 }
