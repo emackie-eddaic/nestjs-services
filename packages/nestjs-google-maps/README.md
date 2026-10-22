@@ -1,11 +1,11 @@
 # nestjs-google-maps
 
-Simple [NestJS](https://nestjs.com/) Module to support a [google-maps-services-js](googlemaps/google-maps-services-js) client.
+Simple [NestJS](https://nestjs.com/) Module to support a [google-maps-services-js](https://github.com/googlemaps/google-maps-services-js) client.
 
 ## Installation
 
 ```sh
-npm install @eddaic/nestjs-google-maps
+npm install @eddaic/nestjs-google-maps @nestjs/config
 ```
 
 ## Usage
@@ -19,20 +19,21 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     GoogleMapsModule.registerAsync({
-      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        params: { key: config.get('GOOGLE_API_KEY') },
+        params: { key: config.getOrThrow<string>('GOOGLE_API_KEY') },
       }),
     }),
   ],
-  providers: [AppService],
 })
 export class AppModule {}
 ```
 
 ### Calling
+
+Register this service in your application's `providers`.
 
 ```typescript
 import { GoogleMapsService } from '@eddaic/nestjs-google-maps';
@@ -42,15 +43,14 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   constructor(private readonly maps: GoogleMapsService) {}
 
-  helloWorld() {
+  async lookup(place_id: string, points: { lat: number; lng: number }[]) {
     // Some convenience methods are included
-    const place_id = 'test';
     const placeDetails = await this.maps.placeDetails({ place_id });
 
     // Otherwise can access the client directly for full set of APIs
-    const { key } = this.maps.params;
-    const params = { key, points: [] };
+    const params = { ...this.maps.params, points };
     const response = await this.maps.client.nearestRoads({ params });
+    return { placeDetails, roads: response.data };
   }
 }
 ```

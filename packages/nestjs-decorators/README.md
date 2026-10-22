@@ -2,7 +2,7 @@
 
 A variety of decorators, pipes and transformers intended for use with [NestJS](https://nestjs.com/) framework.
 
-Included with each decorator are Swagger `ApiProperty` definitions to reduce boiler plate in DTOs.
+Included with each decorator are Swagger `ApiProperty` definitions to reduce boilerplate in DTOs.
 
 ## Installation
 
@@ -31,7 +31,7 @@ npm install @eddaic/nestjs-decorators
 
 ### `ParseBigIntPipe`
 
-Pipe parameters as bigint values. A `BadRequestException` is thrown if unable to tranform.
+Pipe parameters as bigint values and serialize them as strings in responses. A `BadRequestException` is thrown if unable to transform.
 
 ```typescript
 import { ParseBigIntPipe } from '@eddaic/nestjs-decorators';
@@ -40,8 +40,8 @@ import { Controller, Get, Param } from '@nestjs/common';
 @Controller()
 export class AppController {
   @Get(':id')
-  async getId(@Param('id', ParseBigIntPipe) id: bigint): bigint {
-    return id;
+  getId(@Param('id', ParseBigIntPipe) id: bigint): string {
+    return id.toString();
   }
 }
 ```
@@ -58,22 +58,22 @@ import {
   RoundingPolicy,
   TransformBigInt,
 } from '@eddaic/nestjs-decorators';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsOptional } from 'class-validator';
 
 export class MyDto {
   @IsBigInt()
   @ApiPropertyBigInt()
-  id: bigint;
+  id!: bigint;
 
   @IsBigInt()
   @IsOptional()
   @ApiPropertyBigIntOptional()
   limit?: bigint;
 
-  @IsNumber()
+  @IsBigInt()
   @TransformBigInt({ rounding: RoundingPolicy.CEIL })
   @ApiPropertyBigInt()
-  ceil: bigint;
+  ceil!: bigint;
 }
 ```
 
@@ -93,7 +93,7 @@ export class MyDto {
   @IsNumber()
   @TransformInt({ rounding: RoundingPolicy.FLOOR })
   @ApiPropertyInt()
-  floor: number;
+  floor!: number;
 }
 ```
 
@@ -108,10 +108,10 @@ import {
 import { IsNumber } from 'class-validator';
 
 export class MyDto {
-  @IsNumber({ each: true })
+  @IsNumber({}, { each: true })
   @TransformInt({ each: true, rounding: RoundingPolicy.FLOOR })
   @ApiPropertyInt({ isArray: true })
-  floors: number[];
+  floors!: number[];
 }
 ```
 
@@ -127,12 +127,12 @@ import { IsDate, IsOptional } from 'class-validator';
 export class MyDto {
   @IsDate()
   @ApiPropertyDate()
-  date: date;
+  date!: Date;
 
   @IsDate()
   @IsOptional()
   @ApiPropertyDateOptional()
-  optional_date?: date;
+  optional_date?: Date;
 }
 ```
 
@@ -143,29 +143,32 @@ Returns string array using specified separator (defaults to `,`). Supporting `Re
 ```typescript
 import { SplitString } from '@eddaic/nestjs-decorators';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class MyDto {
   @IsString({ each: true })
   @SplitString({ separator: '|' })
   @ApiProperty({ isArray: true, type: 'string' })
-  strings: string[];
+  strings!: string[];
 }
 ```
 
 #### Combined with `TransformInt`
 
 ```typescript
-import { SplitString, TransformInt } from '@eddaic/nestjs-decorators';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  ApiPropertyInt,
+  SplitString,
+  TransformInt,
+} from '@eddaic/nestjs-decorators';
 import { IsNumber } from 'class-validator';
 
 export class MyDto {
-  @IsNumber({ each: true })
+  @IsNumber({}, { each: true })
   @SplitString({ separator: ',' })
   @TransformInt({ each: true })
   @ApiPropertyInt({ isArray: true })
-  integers: number[];
+  integers!: number[];
 }
 ```
 
@@ -181,6 +184,6 @@ export class MyDto {
   @IsNotEmpty()
   @Trim()
   @ApiProperty()
-  nonEmptyString: string;
+  nonEmptyString!: string;
 }
 ```

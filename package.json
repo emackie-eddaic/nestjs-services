@@ -59,7 +59,8 @@
     "lint:fix": "eslint \"packages/**/*.ts\" --fix",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "test:packages": "node scripts/check-packages.mjs"
+    "test:packages": "node scripts/check-packages.mjs",
+    "check": "npm run build && npm run lint && npm run test:cov -- --runInBand --watchman=false && npm run test:packages"
   },
   "workspaces": [
     "packages/*"
