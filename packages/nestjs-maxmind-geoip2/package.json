@@ -27,10 +27,12 @@
     "@maxmind/geoip2-node": "^6.3.4"
   },
   "devDependencies": {
-    "@nestjs/common": "^11.0.0"
+    "@nestjs/common": "^12.2.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0 || ^12.0.0"
   },
+  "type": "commonjs",
+  "types": "build/index.d.ts",
   "homepage": "https://github.com/emackie-eddaic/nestjs-services/tree/main/packages/nestjs-maxmind-geoip2#readme"
 }

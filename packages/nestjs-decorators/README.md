@@ -4,6 +4,12 @@ A variety of decorators, pipes and transformers intended for use with [NestJS](h
 
 Included with each decorator are Swagger `ApiProperty` definitions to reduce boilerplate in DTOs.
 
+## Compatibility
+
+Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
+
+Use `@nestjs/swagger` 11 with NestJS 11, or `@nestjs/swagger` 12 with NestJS 12.
+
 ## Installation
 
 ```sh

@@ -2,6 +2,10 @@
 
 A [NestJS](https://nestjs.com/) module for IP geolocation through [MaxMind GeoIP2 web services](https://github.com/maxmind/GeoIP2-node). It provides an injectable client with convenience methods for city, country, and insights lookups.
 
+## Compatibility
+
+Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
+
 ## Installation
 
 ```sh
