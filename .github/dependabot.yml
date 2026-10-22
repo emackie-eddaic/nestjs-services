@@ -1,7 +1,3 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 version: 2
 updates:
   - package-ecosystem: 'github-actions'
@@ -10,22 +6,22 @@ updates:
       interval: 'monthly'
     assignees:
       - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
+    commit-message:
+      prefix: 'fix'
+      include: 'scope'
 
-  # Root
-  - package-ecosystem: 'npm' #
+  # All npm workspaces share the root lockfile.
+  - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'monthly'
     assignees:
       - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
     commit-message:
-      prefix: 'feat'
+      prefix: 'fix'
       prefix-development: 'chore'
       include: 'scope'
+    open-pull-requests-limit: 10
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-major']
@@ -34,10 +30,10 @@ updates:
         patterns:
           - '@types/jest'
           - 'jest'
+          - 'ts-jest'
       nestjs:
         patterns:
-          - '@nestjs/common'
-          - '@nestjs/testing'
+          - '@nestjs/*'
       prettier:
         patterns:
           - 'eslint-config-prettier'
@@ -49,88 +45,3 @@ updates:
           - 'eslint'
           - 'eslint-*'
           - 'typescript-eslint'
-
-  # Cacheable
-  - package-ecosystem: 'npm'
-    directory: 'packages/nestjs-cacheable'
-    schedule:
-      interval: 'monthly'
-    assignees:
-      - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
-    commit-message:
-      prefix: 'feat'
-      prefix-development: 'chore'
-      include: 'scope'
-    ignore:
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
-
-  # Decorators
-  - package-ecosystem: 'npm'
-    directory: 'packages/nestjs-decorators'
-    schedule:
-      interval: 'monthly'
-    assignees:
-      - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
-    commit-message:
-      prefix: 'feat'
-      prefix-development: 'chore'
-      include: 'scope'
-    ignore:
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
-
-  # Google Maps
-  - package-ecosystem: 'npm'
-    directory: 'packages/nestjs-google-maps'
-    schedule:
-      interval: 'monthly'
-    assignees:
-      - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
-    commit-message:
-      prefix: 'feat'
-      prefix-development: 'chore'
-      include: 'scope'
-    ignore:
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
-
-  # MaxMind GeoIP2
-  - package-ecosystem: 'npm'
-    directory: 'packages/nestjs-maxmind-geoip2'
-    schedule:
-      interval: 'monthly'
-    assignees:
-      - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
-    commit-message:
-      prefix: 'feat'
-      prefix-development: 'chore'
-      include: 'scope'
-    ignore:
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']
-
-  # ThingsBoard HTTP Integration
-  - package-ecosystem: 'npm'
-    directory: 'packages/nestjs-thingsboard-http-integration'
-    schedule:
-      interval: 'monthly'
-    assignees:
-      - 'emackie-eddaic'
-    reviewers:
-      - 'emackie-eddaic'
-    commit-message:
-      prefix: 'feat'
-      prefix-development: 'chore'
-      include: 'scope'
-    ignore:
-      - dependency-name: '*'
-        update-types: ['version-update:semver-major']

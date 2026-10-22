@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { CacheableModule, CacheableService } from '@eddaic/nestjs-cacheable';
-import { ParseBigIntPipe, TransformInt } from '@eddaic/nestjs-decorators';
+import { IsBigInt, ParseBigIntPipe, TransformInt } from '@eddaic/nestjs-decorators';
 import {
   GoogleMapsModule,
   GoogleMapsService,
@@ -19,10 +19,14 @@ import {
 import { HttpService } from '@nestjs/axios';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
+import { validateSync } from 'class-validator';
 
 class Dto {
   @TransformInt()
   value!: number;
+
+  @IsBigInt()
+  id!: bigint;
 }
 
 async function check() {
@@ -33,6 +37,11 @@ async function check() {
     CacheableService,
   );
   assert.equal(plainToInstance(Dto, { value: '42' }).value, 42);
+  assert.deepEqual(validateSync(plainToInstance(Dto, { id: 42n })), []);
+  const errors = validateSync(plainToInstance(Dto, { id: 'invalid' }));
+  assert.equal(errors.length, 1);
+  assert.equal(errors[0].property, 'id');
+  assert.equal(errors[0].constraints?.isBigInt, 'id property must be a BigInt');
   assert.equal(
     await new ParseBigIntPipe().transform('9007199254740993', {
       type: 'param',
