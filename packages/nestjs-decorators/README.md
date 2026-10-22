@@ -79,7 +79,7 @@ export class MyDto {
 
 ### `ApiPropertyInt`, `TransformInt`
 
-Transform decimal values to integer `number` values through a rounding policy.
+Transform numbers or nonblank numeric strings to safe integer `number` values. Decimal values require a rounding policy. Invalid inputs, non-finite values, and results outside JavaScript's safe integer range return `null`. Booleans, objects, arrays passed as scalar values, and bigint inputs return `null`. Use `TransformBigInt` for large integer strings.
 
 ```typescript
 import {

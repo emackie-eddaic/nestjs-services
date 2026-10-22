@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { isArray, isEmpty, isInt } from 'class-validator';
+import { isArray } from 'class-validator';
 import { TransformIntOptions } from '../interface';
 import { round } from '../util';
 
@@ -7,15 +7,23 @@ export function transformInt(
   value: unknown,
   options?: TransformIntOptions,
 ): number | null {
-  if (!isEmpty(value)) {
-    const numberValue = Number(value);
-    if (isInt(numberValue)) {
-      return numberValue;
-    } else if (options?.rounding !== undefined) {
-      return round(numberValue, options.rounding);
-    }
+  if (
+    (typeof value !== 'number' && typeof value !== 'string') ||
+    (typeof value === 'string' && value.trim() === '')
+  ) {
+    return null;
   }
-  return null;
+
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return null;
+  }
+
+  const result =
+    options?.rounding !== undefined
+      ? round(numberValue, options.rounding)
+      : numberValue;
+  return Number.isSafeInteger(result) ? result : null;
 }
 
 export function transformIntArray(
@@ -26,11 +34,9 @@ export function transformIntArray(
 }
 
 /**
- * Transform value into integer using specified options. If the value
- * is null, empty or undefined, it will return null.
- *
- * Otherwise an integer value will be returned rounded as necessary
- * using the specified rounding policy.
+ * Transform a number or nonblank numeric string into a safe integer,
+ * applying the specified rounding policy when provided.
+ * Invalid, non-finite and unsafe results return null.
  * @param options {@link TransformIntOptions}
  * @returns
  */
