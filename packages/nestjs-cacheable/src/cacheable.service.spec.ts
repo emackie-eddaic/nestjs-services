@@ -1,18 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CacheableModule } from './cacheable.module';
 import { CacheableService } from './cacheable.service';
 
 describe('CacheableService', () => {
   let service: CacheableService;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [CacheableService],
+    module = await Test.createTestingModule({
+      imports: [CacheableModule],
+      providers: [
+        {
+          provide: 'CONSUMER',
+          inject: [CacheableService],
+          useFactory: (cacheable: CacheableService) => cacheable,
+        },
+      ],
     }).compile();
 
-    service = module.get<CacheableService>(CacheableService);
+    service = module.get<CacheableService>('CONSUMER');
   });
 
-  it('should be defined', () => {
+  afterEach(async () => {
+    await module.close();
+  });
+
+  it('exports the service to importing modules', () => {
     expect(service).toBeDefined();
   });
 });

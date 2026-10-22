@@ -37,14 +37,13 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.ts"
+      "*/src/**/*.ts",
+      "!*/src/**/*.spec.ts",
+      "!*/src/**/*.d.ts",
+      "!*/src/**/index.ts",
+      "!*/src/type/**"
     ],
     "coverageDirectory": "../coverage",
-    "coveragePathIgnorePatterns": [
-      "index.ts",
-      "module.ts",
-      "type.ts"
-    ],
     "coverageReporters": [
       "html",
       "text",
