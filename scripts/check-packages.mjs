@@ -82,6 +82,7 @@ try {
     '@nestjs/testing': '11.1.9',
     '@nestjs/swagger': '11.4.7',
     '@nestjs/axios': '4.0.1',
+    'class-validator': '0.14.4',
   };
   const fixture = await readFile(
     join(root, 'scripts', 'package-consumer.ts'),
