@@ -21,9 +21,11 @@
     "cacheable-lookup": "^6.1.0"
   },
   "devDependencies": {
-    "@nestjs/common": "^11.0.0"
+    "@nestjs/common": "^12.2.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0 || ^12.0.0"
-  }
+  },
+  "type": "commonjs",
+  "types": "build/index.d.ts"
 }

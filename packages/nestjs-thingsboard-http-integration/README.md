@@ -2,6 +2,12 @@
 
 Simple [NestJS](https://nestjs.com/) Module to make Thingsboard HTTP Integration upload calls.
 
+## Compatibility
+
+Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
+
+Use `@nestjs/axios` 4 with NestJS 11, or `@nestjs/axios` 12 with NestJS 11 or 12.
+
 ## Installation
 
 ```sh
