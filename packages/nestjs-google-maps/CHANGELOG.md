@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v6.1.0...nestjs-google-maps-v6.1.1) (2026-11-26)
+
+
+### Bug Fixes
+
+* **nestjs-google-maps:** deprecate helpers and shared params ([#169](https://github.com/emackie-eddaic/nestjs-services/issues/169)) ([605f91e](https://github.com/emackie-eddaic/nestjs-services/commit/605f91e4601a8d699249bea7460e81b9f9fccb4e))
+
 ## [6.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v6.0.0...nestjs-google-maps-v6.1.0) (2026-10-22)
 
 

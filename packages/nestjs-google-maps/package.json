@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-google-maps",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "NestJS dependency-injection wrapper for the official Google Maps Services JS client.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
