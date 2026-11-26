@@ -6,24 +6,40 @@ A [NestJS](https://nestjs.com/) module for configuring a [Google Maps Services J
 
 Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
 
-## Deprecated legacy Places helpers
+## Deprecated convenience helpers
 
-`GoogleMapsService.placeDetails` and `GoogleMapsService.reverseGeocodeAsPlace`
-are deprecated and will be removed in the next major release. They use Places
-API (Legacy), which cannot be enabled for new Google Cloud projects. Existing
-projects with legacy access can continue using these helpers until removal;
-this deprecation does not change runtime behavior or Google configuration.
+All six `GoogleMapsService` convenience helpers are deprecated and will be
+removed in the next major release. The configured `client` and shared `params`
+remain available for direct calls to the official Google client.
 
-The replacement will be a separate NestJS wrapper library for Google's official
+| Helper                  | Migration path                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| `elevation`             | Call `client.elevation` and read `response.data`.                                                     |
+| `geolocate`             | Call `client.geolocate` with `params` and the observation `data`, then read `response.data`.          |
+| `reverseGeocode`        | Call `client.reverseGeocode` and read `response.data.results`.                                        |
+| `timezone`              | Call `client.timezone` and read `response.data`.                                                      |
+| `placeDetails`          | Migrate to the planned Places API (New) wrapper described below.                                      |
+| `reverseGeocodeAsPlace` | Call `client.reverseGeocode`, then retrieve place details using the planned Places API (New) wrapper. |
+
+Supply the shared `maps.params` authentication parameters in direct-client
+requests, as shown in the usage example. For geolocation, set `considerIp: false`
+unless looking up the server's location.
+
+The two Places helpers use Places API (Legacy), which cannot be enabled for new
+Google Cloud projects. Their replacement will be a separate NestJS wrapper
+library for Google's official
 [`@googlemaps/places`](https://developers.google.com/maps/documentation/places/web-service/client-libraries)
 client. That wrapper is planned and is not yet published. Migrating to it will
 require enabling **Places API (New)** and allowing it in API-key restrictions;
 enabling the new API does not make the current legacy helpers work. See
 [Google's migration guide](https://developers.google.com/maps/documentation/places/web-service/legacy/migrate-overview).
 
-For address lookups, continue using `reverseGeocode`. Elevation, geolocation,
-time-zone helpers, and direct access to the existing official client remain
-available. This package continues wrapping `@googlemaps/google-maps-services-js`.
+The helper deprecations do not change runtime behavior, dependencies, or Google
+configuration. They do not deprecate the underlying Elevation, Geolocation,
+Geocoding, or Time Zone APIs. This package continues wrapping
+`@googlemaps/google-maps-services-js`, including its existing direct-client and
+re-exported APIs. Existing projects with legacy Places access can continue using
+the Places helpers until removal.
 
 ## Installation
 
@@ -71,10 +87,12 @@ export class AppService {
     lng: number,
     points: { lat: number; lng: number }[],
   ) {
-    // Look up addresses without calling the deprecated legacy Places helpers
-    const addresses = await this.maps.reverseGeocode({ latlng: { lat, lng } });
+    const { data } = await this.maps.client.reverseGeocode({
+      params: { ...this.maps.params, latlng: { lat, lng } },
+    });
+    const addresses = data.results;
 
-    // Otherwise can access the client directly for full set of APIs
+    // Use the configured client directly for the full set of APIs
     const params = { ...this.maps.params, points };
     const response = await this.maps.client.nearestRoads({ params });
     return { addresses, roads: response.data };

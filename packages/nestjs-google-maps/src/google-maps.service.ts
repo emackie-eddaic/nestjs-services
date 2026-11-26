@@ -26,7 +26,7 @@ import type {
  */
 @Injectable()
 export class GoogleMapsService {
-  /** The configured official client for calls not covered by convenience methods. */
+  /** The configured official client for direct API calls. */
   readonly client: Client;
   /** Shared authentication parameters merged into convenience-method requests. */
   readonly params: RequestParams;
@@ -47,6 +47,10 @@ export class GoogleMapsService {
   /**
    * Looks up elevations for individual locations or samples along a path.
    *
+   * @deprecated This helper will be removed in the next major release. Use
+   * `client.elevation` directly and supply the shared authentication parameters
+   * from `params` in the request.
+   *
    * @param params - Locations to look up, or a path and its sample count.
    * @returns The Elevation API response data, including elevation results.
    */
@@ -65,6 +69,10 @@ export class GoogleMapsService {
    * @remarks
    * Set `considerIp` to `false` unless the server's location is intended:
    * IP-based lookup uses the server's IP address.
+   *
+   * @deprecated This helper will be removed in the next major release. Use
+   * `client.geolocate` directly and supply the shared authentication parameters
+   * from `params` in the request.
    *
    * @param data - Device observations and IP-fallback settings.
    * @returns The estimated coordinates and accuracy radius in meters.
@@ -99,6 +107,10 @@ export class GoogleMapsService {
   /**
    * Retrieves addresses for coordinates or a place ID using the Geocoding API.
    *
+   * @deprecated This helper will be removed in the next major release. Use
+   * `client.reverseGeocode` directly and supply the shared authentication parameters
+   * from `params` in the request.
+   *
    * @param params - Location or place ID, language, and result filters.
    * @returns Matching geocoding results, or an empty array when none are found.
    */
@@ -118,7 +130,7 @@ export class GoogleMapsService {
    * @deprecated This helper will be removed in the next major release in favor
    * of a new NestJS wrapper library for Google's official `@googlemaps/places`
    * client. The replacement wrapper is planned and is not yet available. Use
-   * {@link GoogleMapsService.reverseGeocode | reverseGeocode} for addresses;
+   * `client.reverseGeocode` directly for addresses;
    * future place-details calls should use Places API (New).
    *
    * @param params - Location or place ID and reverse-geocoding filters.
@@ -136,6 +148,10 @@ export class GoogleMapsService {
 
   /**
    * Retrieves time-zone information for a location at a specified time.
+   *
+   * @deprecated This helper will be removed in the next major release. Use
+   * `client.timezone` directly and supply the shared authentication parameters
+   * from `params` in the request.
    *
    * @param params - Coordinates, timestamp, and optional response language.
    * @returns Time-zone identifiers and offsets for standard time and daylight saving.
