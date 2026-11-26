@@ -8,6 +8,13 @@ import { GoogleMapsConfiguration } from './type';
 
 const defaultConfig: GoogleMapsConfiguration = { params: { key: '' } };
 
+/**
+ * Provides {@link GoogleMapsService} using the official Google Maps client.
+ *
+ * @remarks
+ * Use `register` for synchronous configuration or `registerAsync` to resolve
+ * configuration through Nest dependency injection.
+ */
 @Module({
   exports: [GoogleMapsService],
   providers: [
