@@ -9,16 +9,10 @@ Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript
 ## Installation
 
 ```sh
-npm install @eddaic/nestjs-google-maps @nestjs/config
+npm install @eddaic/nestjs-google-maps @googlemaps/google-maps-services-js@^3.4.2 @nestjs/config
 ```
 
-If your application imports Google client classes, types, or enums, declare the official client as a direct dependency as well:
-
-```sh
-npm install @googlemaps/google-maps-services-js@^3.4.2
-```
-
-Import those symbols from `@googlemaps/google-maps-services-js`, for example:
+The official Google client is a required peer dependency (`^3.4.2`). Declare a compatible version in your application so the wrapper and application use the same client installation. Import upstream classes, types, and enums from `@googlemaps/google-maps-services-js`, for example:
 
 ```typescript
 import {
@@ -27,7 +21,7 @@ import {
 } from '@googlemaps/google-maps-services-js';
 ```
 
-The wrapper continues to depend on the official client for its implementation. Applications that only access `maps.client` do not need a separate client import.
+The peer is required even when your application only accesses `maps.client`. `GoogleMapsConfiguration` remains exported by this wrapper; its `config` field references the official client's `ClientOptions` without re-exporting that type.
 
 ## Usage
 
@@ -112,7 +106,7 @@ The previously deprecated convenience helpers and shared authentication paramete
 
 Upstream client re-exports and the helper-only aliases `GeolocateRequestData`, `PlaceDetailsRequestParams`, `ReverseGeocodeParams`, and `TimezoneParams` have also been removed. Import upstream classes, enums, and request/response types from `@googlemaps/google-maps-services-js` directly and declare that package as a direct application dependency. For example, use `GeolocateRequest['data']` or `PlaceDetailsRequest['params']` from the official package rather than the old helper aliases; direct request parameters include authentication.
 
-The official Google Maps Services JS implementation dependency is retained. No replacement dependency is introduced. Existing projects requiring legacy Places can still call the underlying `client.placeDetails` directly; applications that require the removed helpers must remain on the previous major until migrated.
+The official Google Maps Services JS client is now a required peer dependency (`^3.4.2`) instead of a runtime dependency. Add a compatible version to your application dependencies before upgrading. No replacement client library is introduced. Existing projects requiring legacy Places can still call the underlying `client.placeDetails` directly; applications that require the removed helpers must remain on the previous major until migrated.
 
 ## Legacy Places limitations
 

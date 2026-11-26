@@ -27,17 +27,27 @@ try {
   const packages = [];
   // Use the development lockfile for Nest 12 and retain the Nest 11 baseline.
   const dependencies = Object.fromEntries(
-    [
-      '@nestjs/core',
-      '@nestjs/testing',
-      '@googlemaps/google-maps-services-js',
-    ].map((name) => [name, lock.packages[`node_modules/${name}`].version]),
+    ['@nestjs/core', '@nestjs/testing'].map((name) => [
+      name,
+      lock.packages[`node_modules/${name}`].version,
+    ]),
   );
   for (const [directory, exports] of Object.entries(exportsToCheck)) {
     const { build, manifest } = await preparePackage(
       directory,
       join(temporary, directory),
     );
+    if (directory === 'nestjs-google-maps') {
+      assert.equal(
+        manifest.peerDependencies['@googlemaps/google-maps-services-js'],
+        '^3.4.2',
+      );
+      assert.equal(
+        manifest.dependencies?.['@googlemaps/google-maps-services-js'],
+        undefined,
+      );
+      assert.equal(manifest.devDependencies, undefined);
+    }
     const [packed] = JSON.parse(
       runNpm(
         ['pack', '--json', '--ignore-scripts', '--pack-destination', temporary],
