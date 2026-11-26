@@ -1,2 +1,1 @@
-export * from './google-maps-configuration.type';
-export * from './google-maps.type';
+export type { GoogleMapsConfiguration } from './google-maps-configuration.type';

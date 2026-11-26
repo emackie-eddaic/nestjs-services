@@ -27,10 +27,11 @@ try {
   const packages = [];
   // Use the development lockfile for Nest 12 and retain the Nest 11 baseline.
   const dependencies = Object.fromEntries(
-    ['@nestjs/core', '@nestjs/testing'].map((name) => [
-      name,
-      lock.packages[`node_modules/${name}`].version,
-    ]),
+    [
+      '@nestjs/core',
+      '@nestjs/testing',
+      '@googlemaps/google-maps-services-js',
+    ].map((name) => [name, lock.packages[`node_modules/${name}`].version]),
   );
   for (const [directory, exports] of Object.entries(exportsToCheck)) {
     const { build, manifest } = await preparePackage(

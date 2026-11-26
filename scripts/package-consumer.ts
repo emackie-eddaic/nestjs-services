@@ -9,8 +9,6 @@ import {
   TransformInt,
 } from '@eddaic/nestjs-decorators';
 import {
-  Client,
-  Status,
   type GoogleMapsConfiguration,
   GoogleMapsModule,
   GoogleMapsService,
@@ -23,6 +21,7 @@ import {
   ThingsBoardHttpIntegrationModule,
   ThingsBoardHttpIntegrationService,
 } from '@eddaic/nestjs-thingsboard-http-integration';
+import { Client, Status } from '@googlemaps/google-maps-services-js';
 import { HttpService } from '@nestjs/axios';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
@@ -112,7 +111,18 @@ async function check() {
       assert.ok(module.get(CacheableService) instanceof CacheableService);
       const maps = module.get(GoogleMapsService);
       assert.ok(maps.client instanceof Client);
-      assert.equal(require('@eddaic/nestjs-google-maps').Client, Client);
+      assert.deepEqual(
+        Object.keys(require('@eddaic/nestjs-google-maps')).sort(),
+        ['GoogleMapsModule', 'GoogleMapsService'],
+      );
+      const publicMapsExports: Record<
+        keyof typeof import('@eddaic/nestjs-google-maps'),
+        true
+      > = {
+        GoogleMapsModule: true,
+        GoogleMapsService: true,
+      };
+      void publicMapsExports;
       assert.deepEqual(maps.client.getExperienceId(), ['tarball-consumer']);
       // The wrapper now exposes only the configured client; check the public
       // declaration surface as well as runtime absence of the removed members.

@@ -1,9 +1,17 @@
 import { Test } from '@nestjs/testing';
-import { Client, Status } from './index';
+import { Client, Status } from '@googlemaps/google-maps-services-js';
+import * as api from './index';
 import { GoogleMapsModule } from './google-maps.module';
 import { GoogleMapsService } from './google-maps.service';
 
 describe('GoogleMapsService', () => {
+  it('exports only the NestJS module and service at runtime', () => {
+    expect(Object.keys(api).sort()).toEqual([
+      'GoogleMapsModule',
+      'GoogleMapsService',
+    ]);
+  });
+
   it.each([GoogleMapsModule, GoogleMapsModule.register({})])(
     'provides a default client without shared authentication configuration (%#)',
     async (imported) => {

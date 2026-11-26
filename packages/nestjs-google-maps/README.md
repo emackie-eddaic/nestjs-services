@@ -1,6 +1,6 @@
 # nestjs-google-maps
 
-A [NestJS](https://nestjs.com/) dependency-injection wrapper for the official [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client. `GoogleMapsService.client` exposes the underlying client directly. Client classes, types, and enums are re-exported for consumers.
+A [NestJS](https://nestjs.com/) dependency-injection wrapper for the official [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client. `GoogleMapsService.client` exposes the underlying client directly. The public exports are `GoogleMapsModule`, `GoogleMapsService`, and the wrapper configuration type `GoogleMapsConfiguration`.
 
 ## Compatibility
 
@@ -11,6 +11,23 @@ Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript
 ```sh
 npm install @eddaic/nestjs-google-maps @nestjs/config
 ```
+
+If your application imports Google client classes, types, or enums, declare the official client as a direct dependency as well:
+
+```sh
+npm install @googlemaps/google-maps-services-js@^3.4.2
+```
+
+Import those symbols from `@googlemaps/google-maps-services-js`, for example:
+
+```typescript
+import {
+  Status,
+  type ReverseGeocodeRequest,
+} from '@googlemaps/google-maps-services-js';
+```
+
+The wrapper continues to depend on the official client for its implementation. Applications that only access `maps.client` do not need a separate client import.
 
 ## Usage
 
@@ -93,7 +110,9 @@ The previously deprecated convenience helpers and shared authentication paramete
 | `service.params`                        | Obtain authentication parameters from your application configuration and supply them in each request.                                                                   |
 | `GoogleMapsConfiguration.params`        | Remove this option from `register` / `registerAsync` configuration. Use `{}` or the bare module for defaults. Existing `config` client options retain their shape.      |
 
-The official Google Maps Services JS dependency and its existing re-exports, including the wrapper's request-type aliases, remain available. No replacement dependency is introduced. Existing projects requiring legacy Places can still call the underlying `client.placeDetails` directly; applications that require the removed helpers must remain on the previous major until migrated.
+Upstream client re-exports and the helper-only aliases `GeolocateRequestData`, `PlaceDetailsRequestParams`, `ReverseGeocodeParams`, and `TimezoneParams` have also been removed. Import upstream classes, enums, and request/response types from `@googlemaps/google-maps-services-js` directly and declare that package as a direct application dependency. For example, use `GeolocateRequest['data']` or `PlaceDetailsRequest['params']` from the official package rather than the old helper aliases; direct request parameters include authentication.
+
+The official Google Maps Services JS implementation dependency is retained. No replacement dependency is introduced. Existing projects requiring legacy Places can still call the underlying `client.placeDetails` directly; applications that require the removed helpers must remain on the previous major until migrated.
 
 ## Legacy Places limitations
 
