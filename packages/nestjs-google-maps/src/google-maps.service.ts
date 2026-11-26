@@ -28,7 +28,13 @@ import type {
 export class GoogleMapsService {
   /** The configured official client for direct API calls. */
   readonly client: Client;
-  /** Shared authentication parameters merged into convenience-method requests. */
+  /**
+   * Shared authentication parameters merged into convenience-method requests.
+   *
+   * @deprecated This property will be removed with the convenience helpers in
+   * the next major release. Supply authentication parameters from your own
+   * application configuration directly in each client request.
+   */
   readonly params: RequestParams;
 
   /**
@@ -48,8 +54,8 @@ export class GoogleMapsService {
    * Looks up elevations for individual locations or samples along a path.
    *
    * @deprecated This helper will be removed in the next major release. Use
-   * `client.elevation` directly and supply the shared authentication parameters
-   * from `params` in the request.
+   * `client.elevation` directly and supply authentication parameters from your
+   * application configuration in the request.
    *
    * @param params - Locations to look up, or a path and its sample count.
    * @returns The Elevation API response data, including elevation results.
@@ -71,8 +77,8 @@ export class GoogleMapsService {
    * IP-based lookup uses the server's IP address.
    *
    * @deprecated This helper will be removed in the next major release. Use
-   * `client.geolocate` directly and supply the shared authentication parameters
-   * from `params` in the request.
+   * `client.geolocate` directly and supply authentication parameters from your
+   * application configuration in the request.
    *
    * @param data - Device observations and IP-fallback settings.
    * @returns The estimated coordinates and accuracy radius in meters.
@@ -108,8 +114,8 @@ export class GoogleMapsService {
    * Retrieves addresses for coordinates or a place ID using the Geocoding API.
    *
    * @deprecated This helper will be removed in the next major release. Use
-   * `client.reverseGeocode` directly and supply the shared authentication parameters
-   * from `params` in the request.
+   * `client.reverseGeocode` directly and supply authentication parameters from your
+   * application configuration in the request.
    *
    * @param params - Location or place ID, language, and result filters.
    * @returns Matching geocoding results, or an empty array when none are found.
@@ -150,8 +156,8 @@ export class GoogleMapsService {
    * Retrieves time-zone information for a location at a specified time.
    *
    * @deprecated This helper will be removed in the next major release. Use
-   * `client.timezone` directly and supply the shared authentication parameters
-   * from `params` in the request.
+   * `client.timezone` directly and supply authentication parameters from your
+   * application configuration in the request.
    *
    * @param params - Coordinates, timestamp, and optional response language.
    * @returns Time-zone identifiers and offsets for standard time and daylight saving.

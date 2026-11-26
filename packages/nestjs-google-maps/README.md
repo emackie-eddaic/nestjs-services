@@ -6,11 +6,13 @@ A [NestJS](https://nestjs.com/) module for configuring a [Google Maps Services J
 
 Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
 
-## Deprecated convenience helpers
+## Deprecated convenience helpers and shared parameters
 
 All six `GoogleMapsService` convenience helpers are deprecated and will be
-removed in the next major release. The configured `client` and shared `params`
-remain available for direct calls to the official Google client.
+removed in the next major release. The shared `GoogleMapsService.params` property
+and `GoogleMapsConfiguration.params` option are also deprecated for removal with
+the helpers. The configured `client` remains available for direct calls to the
+official Google client.
 
 | Helper                  | Migration path                                                                                        |
 | ----------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -21,9 +23,12 @@ remain available for direct calls to the official Google client.
 | `placeDetails`          | Migrate to the planned Places API (New) wrapper described below.                                      |
 | `reverseGeocodeAsPlace` | Call `client.reverseGeocode`, then retrieve place details using the planned Places API (New) wrapper. |
 
-Supply the shared `maps.params` authentication parameters in direct-client
-requests, as shown in the usage example. For geolocation, set `considerIp: false`
-unless looking up the server's location.
+Supply authentication parameters from your application's configuration in each
+direct-client request, as shown in the usage example. The deprecated module
+configuration option `params` remains required until the next major release for
+compatibility with the existing helpers; it does not set default credentials on
+`client`. For geolocation, set `considerIp: false` unless looking up the server's
+location.
 
 The two Places helpers use Places API (Legacy), which cannot be enabled for new
 Google Cloud projects. Their replacement will be a separate NestJS wrapper
@@ -77,23 +82,28 @@ Register this service in your application's `providers`.
 ```typescript
 import { GoogleMapsService } from '@eddaic/nestjs-google-maps';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly maps: GoogleMapsService) {}
+  constructor(
+    private readonly maps: GoogleMapsService,
+    private readonly config: ConfigService,
+  ) {}
 
   async lookup(
     lat: number,
     lng: number,
     points: { lat: number; lng: number }[],
   ) {
+    const key = this.config.getOrThrow<string>('GOOGLE_API_KEY');
     const { data } = await this.maps.client.reverseGeocode({
-      params: { ...this.maps.params, latlng: { lat, lng } },
+      params: { key, latlng: { lat, lng } },
     });
     const addresses = data.results;
 
     // Use the configured client directly for the full set of APIs
-    const params = { ...this.maps.params, points };
+    const params = { key, points };
     const response = await this.maps.client.nearestRoads({ params });
     return { addresses, roads: response.data };
   }
