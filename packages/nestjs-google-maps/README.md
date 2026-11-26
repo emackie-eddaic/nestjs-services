@@ -1,50 +1,10 @@
 # nestjs-google-maps
 
-A [NestJS](https://nestjs.com/) module for configuring a [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client through dependency injection. It includes convenience methods for place details, reverse geocoding, geolocation, elevation, and time zones, with direct access to the underlying client.
+A [NestJS](https://nestjs.com/) dependency-injection wrapper for the official [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client. `GoogleMapsService.client` exposes the underlying client directly. Client classes, types, and enums are re-exported for consumers.
 
 ## Compatibility
 
 Supports NestJS 11 and 12 in CommonJS and ESM applications. Published JavaScript is CommonJS with TypeScript declarations; ESM applications can use named imports. NestJS 12 requires Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
-
-## Deprecated convenience helpers and shared parameters
-
-All six `GoogleMapsService` convenience helpers are deprecated and will be
-removed in the next major release. The shared `GoogleMapsService.params` property
-and `GoogleMapsConfiguration.params` option are also deprecated for removal with
-the helpers. The configured `client` remains available for direct calls to the
-official Google client.
-
-| Helper                  | Migration path                                                                                        |
-| ----------------------- | ----------------------------------------------------------------------------------------------------- |
-| `elevation`             | Call `client.elevation` and read `response.data`.                                                     |
-| `geolocate`             | Call `client.geolocate` with `params` and the observation `data`, then read `response.data`.          |
-| `reverseGeocode`        | Call `client.reverseGeocode` and read `response.data.results`.                                        |
-| `timezone`              | Call `client.timezone` and read `response.data`.                                                      |
-| `placeDetails`          | Migrate to the planned Places API (New) wrapper described below.                                      |
-| `reverseGeocodeAsPlace` | Call `client.reverseGeocode`, then retrieve place details using the planned Places API (New) wrapper. |
-
-Supply authentication parameters from your application's configuration in each
-direct-client request, as shown in the usage example. The deprecated module
-configuration option `params` remains required until the next major release for
-compatibility with the existing helpers; it does not set default credentials on
-`client`. For geolocation, set `considerIp: false` unless looking up the server's
-location.
-
-The two Places helpers use Places API (Legacy), which cannot be enabled for new
-Google Cloud projects. Their replacement will be a separate NestJS wrapper
-library for Google's official
-[`@googlemaps/places`](https://developers.google.com/maps/documentation/places/web-service/client-libraries)
-client. That wrapper is planned and is not yet published. Migrating to it will
-require enabling **Places API (New)** and allowing it in API-key restrictions;
-enabling the new API does not make the current legacy helpers work. See
-[Google's migration guide](https://developers.google.com/maps/documentation/places/web-service/legacy/migrate-overview).
-
-The helper deprecations do not change runtime behavior, dependencies, or Google
-configuration. They do not deprecate the underlying Elevation, Geolocation,
-Geocoding, or Time Zone APIs. This package continues wrapping
-`@googlemaps/google-maps-services-js`, including its existing direct-client and
-re-exported APIs. Existing projects with legacy Places access can continue using
-the Places helpers until removal.
 
 ## Installation
 
@@ -56,28 +16,36 @@ npm install @eddaic/nestjs-google-maps @nestjs/config
 
 ### Initializing
 
+Register `GoogleMapsModule` without configuration to use the client's defaults:
+
 ```typescript
 import { GoogleMapsModule } from '@eddaic/nestjs-google-maps';
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    GoogleMapsModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        params: { key: config.getOrThrow<string>('GOOGLE_API_KEY') },
-      }),
-    }),
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), GoogleMapsModule],
 })
 export class AppModule {}
 ```
 
+Use `GoogleMapsModule.register({ config: clientOptions })` to configure the official client synchronously. For asynchronous configuration, use `registerAsync`:
+
+```typescript
+GoogleMapsModule.registerAsync({
+  useFactory: () => ({
+    config: {
+      config: { timeout: 5000 },
+    },
+  }),
+});
+```
+
+`GoogleMapsConfiguration.config` is the official client's `ClientOptions`: it accepts an Axios `config`, a custom `axiosInstance`, and experience IDs. The nested `config.config` in the example is intentional. Credentials belong in individual requests; module configuration does not set a shared API key.
+
 ### Calling
 
-Register this service in your application's `providers`.
+Provide your consuming service in a module that imports `GoogleMapsModule`. The following example uses the globally registered `ConfigService` to obtain a key for each request:
 
 ```typescript
 import { GoogleMapsService } from '@eddaic/nestjs-google-maps';
@@ -100,12 +68,35 @@ export class AppService {
     const { data } = await this.maps.client.reverseGeocode({
       params: { key, latlng: { lat, lng } },
     });
-    const addresses = data.results;
-
-    // Use the configured client directly for the full set of APIs
-    const params = { key, points };
-    const response = await this.maps.client.nearestRoads({ params });
-    return { addresses, roads: response.data };
+    const roads = await this.maps.client.nearestRoads({
+      params: { key, points },
+    });
+    return { addresses: data.results, roads: roads.data };
   }
 }
 ```
+
+Direct calls retain the official client's request, response, and error behavior. They return a response envelope; read `response.data` for the API payload. For geolocation, set `considerIp: false` unless looking up the server's location.
+
+## Migrating from 6.x
+
+The previously deprecated convenience helpers and shared authentication parameters have been removed in this major release:
+
+| Removed API                             | Migration path                                                                                                                                                          |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `service.elevation(params)`             | Call `service.client.elevation({ params: { key, ...params } })` and read `response.data`.                                                                               |
+| `service.geolocate(data)`               | Call `service.client.geolocate({ params: { key }, data })` and read `response.data`.                                                                                    |
+| `service.reverseGeocode(params)`        | Call `service.client.reverseGeocode({ params: { key, ...params } })` and read `response.data.results`.                                                                  |
+| `service.timezone(params)`              | Call `service.client.timezone({ params: { key, ...params } })` and read `response.data`.                                                                                |
+| `service.placeDetails(params)`          | Use the official Places API (New) client; a separate NestJS wrapper is planned.                                                                                         |
+| `service.reverseGeocodeAsPlace(params)` | Reverse geocode through `service.client`, then retrieve details with the official Places API (New) client. Handle empty geocoding results in the consuming application. |
+| `service.params`                        | Obtain authentication parameters from your application configuration and supply them in each request.                                                                   |
+| `GoogleMapsConfiguration.params`        | Remove this option from `register` / `registerAsync` configuration. Use `{}` or the bare module for defaults. Existing `config` client options retain their shape.      |
+
+The official Google Maps Services JS dependency and its existing re-exports, including the wrapper's request-type aliases, remain available. No replacement dependency is introduced. Existing projects requiring legacy Places can still call the underlying `client.placeDetails` directly; applications that require the removed helpers must remain on the previous major until migrated.
+
+## Legacy Places limitations
+
+The underlying client's Places methods still call Places API (Legacy), which cannot be enabled for new Google Cloud projects. Enabling Places API (New) does not authorize these legacy calls. Removing the NestJS helpers does not change the upstream client's endpoints.
+
+For new Places integrations, use Google's official [`@googlemaps/places`](https://developers.google.com/maps/documentation/places/web-service/client-libraries) client. A separate NestJS wrapper is planned and is not yet published. Enable **Places API (New)** and allow it in API-key restrictions before migrating. See [Google's migration guide](https://developers.google.com/maps/documentation/places/web-service/legacy/migrate-overview).
