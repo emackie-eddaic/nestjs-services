@@ -10,6 +10,7 @@ const exportsToCheck = {
   'nestjs-cacheable': ['CacheableModule', 'CacheableService'],
   'nestjs-decorators': ['TransformInt', 'ParseBigIntPipe'],
   'nestjs-google-maps': ['GoogleMapsModule', 'GoogleMapsService'],
+  'nestjs-google-places': ['GooglePlacesModule', 'GooglePlacesService'],
   'nestjs-maxmind-geoip2': ['MaxmindGeoip2Module', 'MaxmindGeoip2Service'],
   'nestjs-thingsboard-http-integration': [
     'ThingsBoardHttpIntegrationModule',
@@ -46,6 +47,11 @@ try {
         manifest.dependencies?.['@googlemaps/google-maps-services-js'],
         undefined,
       );
+      assert.equal(manifest.devDependencies, undefined);
+    }
+    if (directory === 'nestjs-google-places') {
+      assert.equal(manifest.peerDependencies['@googlemaps/places'], '^3.0.0');
+      assert.equal(manifest.dependencies?.['@googlemaps/places'], undefined);
       assert.equal(manifest.devDependencies, undefined);
     }
     const [packed] = JSON.parse(
@@ -103,22 +109,29 @@ try {
     [11, nest11],
     [12, {}],
   ]) {
-    for (const mapsVersion of new Set([
-      '3.0.0',
-      dependencies['@googlemaps/google-maps-services-js'],
-    ])) {
-      const consumer = join(temporary, `nest-${major}-maps-${mapsVersion}`);
+    for (const [mapsVersion, placesVersion] of [
+      ['3.0.0', '3.0.0'],
+      [
+        dependencies['@googlemaps/google-maps-services-js'],
+        dependencies['@googlemaps/places'],
+      ],
+    ]) {
+      const consumer = join(
+        temporary,
+        `nest-${major}-maps-${mapsVersion}-places-${placesVersion}`,
+      );
       await mkdir(consumer);
       await writeFile(
         join(consumer, 'package.json'),
         JSON.stringify({
-          name: `nestjs-services-package-check-${major}-maps-${mapsVersion}`,
+          name: `nestjs-services-package-check-${major}-maps-${mapsVersion}-places-${placesVersion}`,
           private: true,
           type: 'module',
           dependencies: {
             ...dependencies,
             ...overrides,
             '@googlemaps/google-maps-services-js': mapsVersion,
+            '@googlemaps/places': placesVersion,
           },
           devDependencies: {
             '@types/node': lock.packages['node_modules/@types/node'].version,
@@ -133,6 +146,10 @@ try {
       assert.equal(
         require('@googlemaps/google-maps-services-js/package.json').version,
         mapsVersion,
+      );
+      assert.equal(
+        require('@googlemaps/places/package.json').version,
+        placesVersion,
       );
       const typeImports = [];
       for (const [
@@ -202,7 +219,7 @@ try {
           stdio: 'inherit',
         });
         console.log(
-          `NestJS ${major}, Maps ${mapsVersion}: ${extension} consumer passed runtime, types, and module wiring checks`,
+          `NestJS ${major}, Maps ${mapsVersion}, Places ${placesVersion}: ${extension} consumer passed runtime, types, and module wiring checks`,
         );
       }
     }

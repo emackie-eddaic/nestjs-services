@@ -11,6 +11,9 @@
       "path": "packages/nestjs-google-maps"
     },
     {
+      "path": "packages/nestjs-google-places"
+    },
+    {
       "path": "packages/nestjs-maxmind-geoip2"
     },
     {

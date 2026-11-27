@@ -4,6 +4,7 @@
     "packages/nestjs-cacheable": {},
     "packages/nestjs-decorators": {},
     "packages/nestjs-google-maps": {},
+    "packages/nestjs-google-places": {},
     "packages/nestjs-maxmind-geoip2": {},
     "packages/nestjs-thingsboard-http-integration": {}
   }

@@ -28,7 +28,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci --ignore-scripts
-      - run: npm run build --workspace packages/nestjs-cacheable
+      - run: npm run build
       - run: npm run lint
   unit-test:
     runs-on: ubuntu-latest

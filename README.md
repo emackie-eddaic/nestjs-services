@@ -7,12 +7,13 @@ An npm workspace monorepo containing NestJS libraries published under `@eddaic`.
 | [nestjs-cacheable](packages/nestjs-cacheable/README.md)                                       | DNS caching with cacheable-lookup                            |
 | [nestjs-decorators](packages/nestjs-decorators/README.md)                                     | DTO decorators, transformers, validators, and pipes          |
 | [nestjs-google-maps](packages/nestjs-google-maps/README.md)                                   | Dependency injection for the official Google Maps client |
+| [nestjs-google-places](packages/nestjs-google-places/README.md) | Dependency injection for the official Places API (New) client |
 | [nestjs-maxmind-geoip2](packages/nestjs-maxmind-geoip2/README.md)                             | MaxMind GeoIP2 web service client                            |
 | [nestjs-thingsboard-http-integration](packages/nestjs-thingsboard-http-integration/README.md) | ThingsBoard telemetry uploads with cached DNS lookups        |
 
 ## Development setup
 
-Use Node.js 24.9 or newer on the 24.x line (selected by `.nvmrc`) and npm. Run commands from the repository root.
+Use the Node.js version specified in `.nvmrc` and npm. Run commands from the repository root.
 
 ```sh
 nvm install
@@ -21,23 +22,13 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-The lockfile is shared across all workspaces. CI uses Node.js 24 and the locked NestJS 12 dependencies. Tarball consumer tests also verify NestJS 11 compatibility.
-
-This repository contains libraries, so configure API credentials in the consuming application. Unit tests use mocks or HTTP adapters and do not require API keys. Package verification installs dependencies from npm.
+The lockfile is shared across all workspaces.
 
 ## Module compatibility
 
-The libraries publish CommonJS JavaScript and TypeScript declarations. Both CommonJS
-(`require` or TypeScript imports) and ESM (named `import` statements) applications
-can use the same packages and Nest injection tokens. The repository keeps TypeScript's
-`nodenext` resolution with explicit `"type": "commonjs"` manifests; the `.mjs`
-packaging and ESLint helpers remain native ESM scripts.
-
-NestJS 11 and 12 are supported. NestJS 12's ESM dependencies require Node.js 20.19+
-(or 22.12+ on Node 22); Node.js 24 is recommended. Development tests use Jest 30
-and require Node.js 24.9+; the test scripts enable Node's VM modules for ESM dependencies. See the [NestJS migration guide](https://docs.nestjs.com/migration-guide).
-ThingsBoard supports `@nestjs/axios` 4 with NestJS 11 and `@nestjs/axios` 12 with
-NestJS 11 or 12. Match `@nestjs/swagger` to the NestJS major when using Decorators.
+The packages publish CommonJS JavaScript and TypeScript declarations and support
+CommonJS and ESM consumers. See each package's README and manifest for framework,
+runtime, and peer-dependency requirements.
 
 ## Validation
 
@@ -45,7 +36,7 @@ NestJS 11 or 12. Match `@nestjs/swagger` to the NestJS major when using Decorato
 npm run check
 ```
 
-This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies all five npm tarballs in temporary CommonJS and ESM consumer projects on NestJS 11 and 12. It does not publish packages.
+This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies package tarballs in temporary CommonJS and ESM consumer projects.
 
 | Command                                                                                                                            | Purpose                                                                                          |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -53,7 +44,7 @@ This builds all packages, lints TypeScript, runs unit tests with coverage, and v
 | `npm run lint`                                                                                                                     | Run lint and source formatting checks                                                            |
 | `npm test -- --runInBand --watchman=false`                                                                                         | Run unit tests without Watchman                                                                  |
 | `npm run test:cov -- --runInBand --watchman=false`                                                                                 | Run tests and write coverage reports to `coverage/`                                              |
-| `npm run test:packages`                                                                                                            | Verify tarballs, CJS/ESM TypeScript consumers, and NestJS 11/12 module wiring; run a build first |
+| `npm run test:packages`                                                                                                            | Verify tarballs, CJS/ESM TypeScript consumers, and module wiring; run a build first |
 | `npm run build --workspace packages/nestjs-thingsboard-http-integration`                                                           | Build ThingsBoard and its Cacheable dependency                                                   |
 | `npm test -- --runInBand --watchman=false --runTestsByPath packages/nestjs-decorators/src/int/transformer/int.transformer.spec.ts` | Run a single test file                                                                           |
 | `npm audit --omit=dev`                                                                                                             | Check production dependency advisories                                                           |
