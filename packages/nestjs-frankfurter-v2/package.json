@@ -1,6 +1,6 @@
 {
   "name": "@eddaic/nestjs-frankfurter-v2",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Configurable NestJS HTTP client for the Frankfurter v2 exchange rate API.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",

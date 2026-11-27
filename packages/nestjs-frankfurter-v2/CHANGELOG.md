@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-frankfurter-v2-v1.0.0...nestjs-frankfurter-v2-v1.1.0) (2026-11-27)
+
+
+### Features
+
+* **nestjs-frankfurter-v2:** add configurable Axios retries with ([2bd9e2e](https://github.com/emackie-eddaic/nestjs-services/commit/2bd9e2eafecaddfe25fe04accc3aa51eaedec8a5))
+* **nestjs-frankfurter-v2:** add retries, Axios hooks, and response validation ([#178](https://github.com/emackie-eddaic/nestjs-services/issues/178)) ([2bd9e2e](https://github.com/emackie-eddaic/nestjs-services/commit/2bd9e2eafecaddfe25fe04accc3aa51eaedec8a5))
+* **nestjs-frankfurter-v2:** expose an isolated Axios configuration hook ([2bd9e2e](https://github.com/emackie-eddaic/nestjs-services/commit/2bd9e2eafecaddfe25fe04accc3aa51eaedec8a5))
+* **nestjs-frankfurter-v2:** validate v2 responses at runtime and expose ([2bd9e2e](https://github.com/emackie-eddaic/nestjs-services/commit/2bd9e2eafecaddfe25fe04accc3aa51eaedec8a5))
+
+
+### Bug Fixes
+
+* **nestjs-frankfurter-v2:** enforce retry time budgets after async Axios ([8f136d4](https://github.com/emackie-eddaic/nestjs-services/commit/8f136d4e65ecd5b4a9021c4aab4b54cac74f6541))
+* **nestjs-frankfurter-v2:** enforce timeout budget after async Axios hooks ([#180](https://github.com/emackie-eddaic/nestjs-services/issues/180)) ([8f136d4](https://github.com/emackie-eddaic/nestjs-services/commit/8f136d4e65ecd5b4a9021c4aab4b54cac74f6541))
+
 ## 1.0.0 (2026-11-27)
 
 
