@@ -72,10 +72,8 @@ See [AGENTS.md](AGENTS.md) for coding-agent instructions.
 
 ## Releases
 
-Every commit message must be a one-line Conventional Commit header, such as `fix(nestjs-cacheable): correct DNS lookup handling` or `feat(nestjs-google-maps): add a client method`. The scope is optional.
+Use Conventional Commit headers for branch commits and PR titles. Code and runtime dependency changes use `fix` or `feat`; development-only dependency updates use `chore`; documentation-only updates use `docs`. Use `fix` for documentation only when explicitly requested to ship the documentation in a release.
 
-Code or runtime dependency changes must use `fix` or `feat` because those types trigger new versions through Release Please. This includes tests, scripts, tooling, build and CI configuration, and manifest or lockfile updates for runtime dependencies, including transitive dependencies. Use `fix` for corrections and maintenance, and `feat` for new functionality. Use `chore` for updates limited to development dependencies and their transitive lockfile changes; mixed development and runtime dependency updates must use `fix` or `feat`. Reserve `docs` for documentation-only commits; mixed code and documentation changes must use `fix` or `feat`.
-
-Breaking changes require explicit user permission after explaining the compatibility impact. General permission to implement or commit is insufficient. After approval, mark the header with `!`; keep the message on one line without a `BREAKING CHANGE` body or footer. Do not make an unapproved breaking change under an ordinary `fix` or `feat` header.
+PR descriptions contain plain Conventional Commit lines for each final change, separated by blank lines without bullet prefixes. Squash merges use the PR title and description so those entries reach the changelog. Breaking changes require explicit approval and `!` in the header. See [AGENTS.md](AGENTS.md) for the complete commit and PR rules.
 
 Release Please manages package versions, changelogs, and release PRs. The release workflow invokes the publish workflow, which installs from the lockfile, builds, verifies tarballs, prepares the selected package, and publishes it. Make packaging changes in `scripts/prepare-package.mjs` so verification and publishing use the same layout.
