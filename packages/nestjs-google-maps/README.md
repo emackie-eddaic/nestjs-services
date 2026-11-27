@@ -2,7 +2,7 @@
 
 A NestJS wrapper for the official [Google Maps Services JS](https://github.com/googlemaps/google-maps-services-js) client. Exports `GoogleMapsModule`, `GoogleMapsService`, and the `GoogleMapsConfiguration` type.
 
-Supports NestJS 11 and 12 in CommonJS and ESM applications. Use Node.js 20.19+ (22.12+ on Node 22); Node.js 24 is recommended.
+Supports NestJS 11 and 12 in CommonJS and ESM applications. Use Node.js 20.19+ (22.12+ on Node 22).
 
 ## Installation
 

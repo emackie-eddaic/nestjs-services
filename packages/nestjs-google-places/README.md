@@ -2,7 +2,7 @@
 
 A NestJS wrapper for Google's official [`@googlemaps/places`](https://developers.google.com/maps/documentation/places/web-service/client-library-examples) client. Exports `GooglePlacesModule`, `GooglePlacesService`, and the `GooglePlacesConfiguration` type.
 
-Supports NestJS 11 and 12 in CommonJS and ESM applications on Node.js 22.12+; Node.js 24 is recommended.
+Supports NestJS 11 and 12 in CommonJS and ESM applications on Node.js 22.12+.
 
 ## Installation
 

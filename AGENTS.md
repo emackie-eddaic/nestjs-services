@@ -2,7 +2,7 @@
 
 ## Layout and boundaries
 
-- This is an npm workspace monorepo of six NestJS libraries. Use Node.js 24 from `.nvmrc`.
+- This is an npm workspace monorepo of NestJS libraries. Use the Node.js version specified in `.nvmrc`.
 - Package responsibilities and setup commands are in [README.md](README.md). Read the relevant package README and existing code before changing behavior.
 - Implementation and colocated `*.spec.ts` tests belong under `packages/<package>/src`. Public APIs flow through each package's `src/index.ts` and its barrels.
 - ThingsBoard imports Cacheable by package name. Its npm dependency, TypeScript project reference, and build command must continue to support standalone builds.
@@ -13,6 +13,7 @@
 - Keep framework and consumer integration peers in `peerDependencies` with development versions available for local builds. Keep required implementation libraries in `dependencies`.
 - Use the root npm lockfile for dependency changes. Avoid forced audit fixes that introduce unreviewed major upgrades or downgrades.
 - Add behavioral regressions for changed runtime behavior. Mock external APIs or use an HTTP test adapter; tests must not require credentials or make paid API requests.
+- Avoid hardcoded package counts and duplicated tool versions in prose. Refer to configuration files for those facts; retain explicit versions when they explain supported compatibility.
 - Keep package documentation focused on current APIs. Check README snippets against exported types and avoid examples that silently accept invalid values or serialize bigint directly.
 - Edit source and packaging helpers rather than generated `build/`, `coverage/`, or `*.tsbuildinfo` artifacts.
 
