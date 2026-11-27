@@ -4,6 +4,7 @@ An npm workspace monorepo containing NestJS libraries published under `@eddaic`.
 
 | Package                                                                                       | Purpose                                                      |
 | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [nestjs-frankfurter-v2](packages/nestjs-frankfurter-v2/README.md) | Typed Frankfurter v2 exchange rate HTTP client |
 | [nestjs-cacheable](packages/nestjs-cacheable/README.md)                                       | DNS caching with cacheable-lookup                            |
 | [nestjs-decorators](packages/nestjs-decorators/README.md)                                     | DTO decorators, transformers, validators, and pipes          |
 | [nestjs-google-maps](packages/nestjs-google-maps/README.md)                                   | Dependency injection for the official Google Maps client |

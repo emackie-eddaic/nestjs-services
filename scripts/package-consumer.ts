@@ -28,6 +28,13 @@ import {
   GooglePlacesService,
   type GooglePlacesConfiguration,
 } from '@eddaic/nestjs-google-places';
+import {
+  FrankfurterModule,
+  FrankfurterService,
+  FrankfurterApiError,
+  type FrankfurterConfiguration,
+  type FrankfurterRatesOptions,
+} from '@eddaic/nestjs-frankfurter-v2';
 import { HttpService } from '@nestjs/axios';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
@@ -228,6 +235,61 @@ async function check() {
       await module.close();
     }
     assert.equal(placesClosed, true);
+    const frankfurterConfig: FrankfurterConfiguration = {
+      baseUrl: 'https://frankfurter.test/v2',
+      timeout: 1234,
+    };
+    const frankfurterModule = await Test.createTestingModule({
+      imports: [
+        asyncRegistration
+          ? FrankfurterModule.registerAsync({
+              useFactory: async () => frankfurterConfig,
+            })
+          : FrankfurterModule.register(frankfurterConfig),
+      ],
+    }).compile();
+    try {
+      assert.equal(
+        require('@eddaic/nestjs-frankfurter-v2').FrankfurterService,
+        FrankfurterService,
+      );
+      const service = frankfurterModule.get(FrankfurterService);
+      const data = [
+        { date: '2026-01-02', base: 'CAD', quote: 'USD', rate: 0.72 },
+      ];
+      frankfurterModule.get(HttpService).axiosRef.defaults.adapter = async (
+        request,
+      ) => {
+        assert.equal(request.url, 'https://frankfurter.test/v2/rates');
+        assert.equal(request.timeout, 1234);
+        assert.equal(String(request.params), 'base=CAD&quotes=USD%2CEUR');
+        return {
+          data,
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config: request,
+        };
+      };
+      const options: FrankfurterRatesOptions = {
+        base: 'CAD',
+        quotes: ['USD', 'EUR'],
+      };
+      assert.deepEqual(await service.getRates(options), data);
+      assert.ok(new FrankfurterApiError(new Error('offline')) instanceof Error);
+      // Check declaration constraints without sending an invalid request.
+      const checkTypes = () => {
+        // @ts-expect-error A historical date cannot be combined with a range.
+        void service.getRates({ date: '2026-01-01', from: '2026-01-01' });
+        // @ts-expect-error Provider routes select the provider through the path.
+        void service.getProviderRates('ECB', { providers: ['BOC'] });
+        // @ts-expect-error Only scope=all is supported.
+        void service.getCurrencies({ scope: 'active' });
+      };
+      void checkTypes;
+    } finally {
+      await frankfurterModule.close();
+    }
   }
 }
 

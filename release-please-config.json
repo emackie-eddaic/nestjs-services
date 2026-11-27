@@ -6,6 +6,7 @@
     "packages/nestjs-google-maps": {},
     "packages/nestjs-google-places": {},
     "packages/nestjs-maxmind-geoip2": {},
-    "packages/nestjs-thingsboard-http-integration": {}
+    "packages/nestjs-thingsboard-http-integration": {},
+    "packages/nestjs-frankfurter-v2": {}
   }
 }
