@@ -57,7 +57,7 @@ GoogleMapsModule.register({
 });
 ```
 
-The outer `config` accepts the official `ClientOptions`, including Axios `config`, `axiosInstance`, and `experienceId`. Use `registerAsync` for configuration supplied through Nest dependency injection. Neither registration method sets shared credentials.
+The outer `config` accepts the official `ClientOptions`, including Axios `config`, `axiosInstance`, and `experienceId`. Use `registerAsync` for configuration supplied through Nest dependency injection.
 
 ## Places API support
 

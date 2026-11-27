@@ -24,8 +24,6 @@ npm run build
 
 The lockfile is shared across all workspaces.
 
-This repository contains libraries, so configure API credentials in the consuming application. Unit tests use mocks or HTTP adapters and do not require API keys. Package verification installs dependencies from npm.
-
 ## Module compatibility
 
 The packages publish CommonJS JavaScript and TypeScript declarations and support

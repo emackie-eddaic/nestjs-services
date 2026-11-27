@@ -14,7 +14,7 @@ The Google client is a required 3.x peer dependency. Import its types directly f
 
 ## Configuration
 
-Enable **Places API (New)** and allow it in your API key's restrictions. Legacy Places enablement does not authorize this API.
+Enable **Places API (New)** and allow it in your API key's restrictions.
 
 ```typescript
 import { GooglePlacesModule } from '@eddaic/nestjs-google-places';
@@ -63,4 +63,4 @@ export class AppService {
 }
 ```
 
-Use the official client directly for details, search, autocomplete, and photos. Requests, response tuples, and errors retain their upstream behavior. Select only needed fields: [field masks](https://developers.google.com/maps/documentation/places/web-service/choose-fields) are required for details and searches and affect billing.
+Select the fields needed by your application: [field masks](https://developers.google.com/maps/documentation/places/web-service/choose-fields) are required for details and searches and affect billing.

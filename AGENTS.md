@@ -14,7 +14,7 @@
 - Use the root npm lockfile for dependency changes. Avoid forced audit fixes that introduce unreviewed major upgrades or downgrades.
 - Add behavioral regressions for changed runtime behavior. Mock external APIs or use an HTTP test adapter; tests must not require credentials or make paid API requests.
 - Avoid hardcoded package counts and duplicated tool versions in prose. Refer to configuration files for those facts; retain explicit versions when they explain supported compatibility.
-- Keep package documentation focused on current APIs. Check README snippets against exported types and avoid examples that silently accept invalid values or serialize bigint directly.
+- Keep package documentation focused on setup, current APIs, and meaningful constraints. Omit generic reassurance about unchanged behavior or absent side effects. Check README snippets against exported types and avoid examples that silently accept invalid values or serialize bigint directly.
 - Edit source and packaging helpers rather than generated `build/`, `coverage/`, or `*.tsbuildinfo` artifacts.
 
 ## Validation
