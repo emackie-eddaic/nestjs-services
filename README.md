@@ -38,7 +38,7 @@ runtime, and peer-dependency requirements.
 npm run check
 ```
 
-This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies package tarballs in temporary CommonJS and ESM consumer projects. It does not publish packages.
+This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies package tarballs in temporary CommonJS and ESM consumer projects.
 
 | Command                                                                                                                            | Purpose                                                                                          |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
