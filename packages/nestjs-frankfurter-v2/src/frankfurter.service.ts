@@ -1,7 +1,11 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, type OnModuleDestroy } from '@nestjs/common';
 import { AxiosHeaders, type AxiosResponseTransformer } from 'axios';
 import { firstValueFrom } from 'rxjs';
+import type { z } from 'zod';
+import { installRetries } from './frankfurter-retry';
+import * as schemas from './frankfurter-response.schema';
+import { FrankfurterResponseValidationError } from './frankfurter-response-validation.error';
 import { FrankfurterApiError } from './frankfurter-api.error';
 import { MODULE_OPTIONS_TOKEN } from './frankfurter.module-definition';
 import type {
@@ -39,7 +43,8 @@ const parseResponse: AxiosResponseTransformer = (
 
 /** Typed JSON methods for Frankfurter v2. Currency/provider codes remain open strings. */
 @Injectable()
-export class FrankfurterService {
+export class FrankfurterService implements OnModuleDestroy {
+  private readonly removeRetries: () => void;
   private readonly baseUrl: string;
   private readonly timeout: number;
   private readonly headers: InstanceType<typeof AxiosHeaders>;
@@ -75,13 +80,19 @@ export class FrankfurterService {
     }
     this.headers = new AxiosHeaders(config.headers);
     this.headers.set('Accept', 'application/json');
+    config.configureAxios?.(this.http.axiosRef);
+    this.removeRetries = installRetries(
+      this.http.axiosRef,
+      config.retry,
+      this.timeout,
+    );
   }
 
   getRates(
     options: FrankfurterRatesOptions = {},
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterRate[]> {
-    return this.get('/rates', options, request);
+    return this.get('/rates', options, schemas.ratesSchema, request);
   }
   getRate(
     base: string,
@@ -92,6 +103,7 @@ export class FrankfurterService {
     return this.get(
       `/rate/${encodeURIComponent(base)}/${encodeURIComponent(quote)}`,
       options,
+      schemas.rateSchema,
       request,
     );
   }
@@ -99,30 +111,40 @@ export class FrankfurterService {
     options: FrankfurterCoverageOptions = {},
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterCoverage> {
-    return this.get('/coverage', options, request);
+    return this.get('/coverage', options, schemas.coverageSchema, request);
   }
   getCurrencies(
     options: FrankfurterCurrenciesOptions = {},
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterCurrency[]> {
-    return this.get('/currencies', options, request);
+    return this.get('/currencies', options, schemas.currenciesSchema, request);
   }
   getCurrency(
     code: string,
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterCurrencyDetail> {
-    return this.get(`/currency/${encodeURIComponent(code)}`, {}, request);
+    return this.get(
+      `/currency/${encodeURIComponent(code)}`,
+      {},
+      schemas.currencyDetailSchema,
+      request,
+    );
   }
   getProviders(
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterProvider[]> {
-    return this.get('/providers', {}, request);
+    return this.get('/providers', {}, schemas.providersSchema, request);
   }
   getProvider(
     provider: string,
     request?: FrankfurterRequestOptions,
   ): Promise<FrankfurterProvider> {
-    return this.get(`/providers/${encodeURIComponent(provider)}`, {}, request);
+    return this.get(
+      `/providers/${encodeURIComponent(provider)}`,
+      {},
+      schemas.providerSchema,
+      request,
+    );
   }
   getProviderRates(
     provider: string,
@@ -132,6 +154,7 @@ export class FrankfurterService {
     return this.get(
       `/providers/${encodeURIComponent(provider)}/rates`,
       options,
+      schemas.ratesSchema,
       request,
     );
   }
@@ -145,13 +168,19 @@ export class FrankfurterService {
     return this.get(
       `/providers/${encodeURIComponent(provider)}/rate/${encodeURIComponent(base)}/${encodeURIComponent(quote)}`,
       options,
+      schemas.rateSchema,
       request,
     );
+  }
+
+  onModuleDestroy(): void {
+    this.removeRetries();
   }
 
   private async get<T>(
     path: string,
     query: Query,
+    schema: z.ZodType<T>,
     request?: FrankfurterRequestOptions,
   ): Promise<T> {
     if (
@@ -171,7 +200,7 @@ export class FrankfurterService {
     }
     try {
       const response = await firstValueFrom(
-        this.http.get<T>(`${this.baseUrl}${path}`, {
+        this.http.get<unknown>(`${this.baseUrl}${path}`, {
           params,
           timeout: this.timeout,
           headers: this.headers,
@@ -180,8 +209,20 @@ export class FrankfurterService {
           transformResponse: [parseResponse],
         }),
       );
-      return response.data;
+      const parsed = schema.safeParse(response.data);
+      if (!parsed.success) {
+        throw new FrankfurterResponseValidationError(
+          response.data,
+          parsed.error.issues.map((issue) => ({
+            path: ['$', ...issue.path].join('.'),
+            message: issue.message,
+          })),
+          response.status,
+        );
+      }
+      return parsed.data;
     } catch (cause) {
+      if (cause instanceof FrankfurterResponseValidationError) throw cause;
       throw new FrankfurterApiError(cause);
     }
   }

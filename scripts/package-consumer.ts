@@ -32,6 +32,7 @@ import {
   FrankfurterModule,
   FrankfurterService,
   FrankfurterApiError,
+  FrankfurterResponseValidationError,
   type FrankfurterConfiguration,
   type FrankfurterRatesOptions,
 } from '@eddaic/nestjs-frankfurter-v2';
@@ -238,6 +239,13 @@ async function check() {
     const frankfurterConfig: FrankfurterConfiguration = {
       baseUrl: 'https://frankfurter.test/v2',
       timeout: 1234,
+      retry: { retries: 1, delay: 0 },
+      configureAxios: (client) => {
+        client.interceptors.request.use((request) => {
+          request.headers.set('X-Consumer', 'tarball');
+          return request;
+        });
+      },
     };
     const frankfurterModule = await Test.createTestingModule({
       imports: [
@@ -261,7 +269,12 @@ async function check() {
         request,
       ) => {
         assert.equal(request.url, 'https://frankfurter.test/v2/rates');
-        assert.equal(request.timeout, 1234);
+        assert.ok(
+          request.timeout !== undefined &&
+            request.timeout > 0 &&
+            request.timeout <= 1234,
+        );
+        assert.equal(request.headers.get('X-Consumer'), 'tarball');
         assert.equal(String(request.params), 'base=CAD&quotes=USD%2CEUR');
         return {
           data,
@@ -277,6 +290,19 @@ async function check() {
       };
       assert.deepEqual(await service.getRates(options), data);
       assert.ok(new FrankfurterApiError(new Error('offline')) instanceof Error);
+      frankfurterModule.get(HttpService).axiosRef.defaults.adapter = async (
+        request,
+      ) => ({
+        data: [{ rate: 'invalid' }],
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config: request,
+      });
+      await assert.rejects(
+        service.getRates(),
+        FrankfurterResponseValidationError,
+      );
       // Check declaration constraints without sending an invalid request.
       const checkTypes = () => {
         // @ts-expect-error A historical date cannot be combined with a range.

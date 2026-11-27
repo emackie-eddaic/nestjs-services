@@ -14,11 +14,30 @@ const rate = { date: '2026-01-02', base: 'EUR', quote: 'USD', rate: 1.1 };
 
 function setup(config: FrankfurterConfiguration = {}) {
   const received = jest.fn<void, [InternalAxiosRequestConfig]>();
-  let data: unknown = rate;
+  let data: unknown;
+  let overridden = false;
   const adapter: AxiosAdapter = (request) => {
     received(request);
+    const path = request.url ?? '';
+    const fallback = path.endsWith('/rates')
+      ? [rate]
+      : path.includes('/rate/')
+        ? rate
+        : path.endsWith('/coverage')
+          ? {
+              base: 'EUR',
+              quotes: null,
+              providers: null,
+              start_date: null,
+              end_date: null,
+            }
+          : path.endsWith('/currencies') || path.endsWith('/providers')
+            ? []
+            : path.includes('/currency/')
+              ? { iso_code: 'EUR', name: 'Euro', type: 'currency' }
+              : { key: 'ECB', name: 'ECB', currencies: [], datasets: [] };
     return Promise.resolve({
-      data,
+      data: overridden ? data : fallback,
       status: 200,
       statusText: 'OK',
       headers: {},
@@ -32,6 +51,7 @@ function setup(config: FrankfurterConfiguration = {}) {
     received,
     respond: (value: unknown) => {
       data = value;
+      overridden = true;
     },
   };
 }

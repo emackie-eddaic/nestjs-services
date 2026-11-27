@@ -11,6 +11,7 @@ const exportsToCheck = {
     'FrankfurterModule',
     'FrankfurterService',
     'FrankfurterApiError',
+    'FrankfurterResponseValidationError',
   ],
   'nestjs-cacheable': ['CacheableModule', 'CacheableService'],
   'nestjs-decorators': ['TransformInt', 'ParseBigIntPipe'],
