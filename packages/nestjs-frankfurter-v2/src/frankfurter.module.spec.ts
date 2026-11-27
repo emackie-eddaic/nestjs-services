@@ -73,4 +73,54 @@ describe('FrankfurterModule', () => {
       }
     },
   );
+  it('isolates Axios hooks and transport defaults between configured modules', async () => {
+    const instances: HttpService['axiosRef'][] = [];
+    const configured = (name: string) =>
+      FrankfurterModule.register({
+        retry: { retries: name === 'first' ? 1 : 0 },
+        configureAxios: (client) => {
+          instances.push(client);
+          client.defaults.headers.common['X-Module'] = name;
+          client.defaults.adapter = (request) =>
+            Promise.resolve({
+              data: [
+                {
+                  date: '2026-01-02',
+                  base: 'EUR',
+                  quote: 'USD',
+                  rate: name === 'first' ? 1 : 2,
+                },
+              ],
+              status: 200,
+              statusText: 'OK',
+              headers: {},
+              config: request,
+            });
+        },
+      });
+    const first = configured('first');
+    const second = configured('second');
+    const module = await Test.createTestingModule({
+      imports: [first, second],
+    }).compile();
+    try {
+      const one = module
+        .select(first)
+        .get(FrankfurterService, { strict: true });
+      const two = module
+        .select(second)
+        .get(FrankfurterService, { strict: true });
+      expect((await one.getRates())[0].rate).toBe(1);
+      expect((await two.getRates())[0].rate).toBe(2);
+      expect(instances).toHaveLength(2);
+      expect(instances[0]).not.toBe(instances[1]);
+      expect(
+        instances
+          .map((client) => client.defaults.headers.common['X-Module'])
+          .sort(),
+      ).toEqual(['first', 'second']);
+    } finally {
+      await module.close();
+    }
+  });
 });

@@ -1,4 +1,4 @@
-import { HttpModule } from '@nestjs/axios';
+import { HttpService } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import {
   ConfigurableModuleClass,
@@ -8,8 +8,15 @@ import { FrankfurterService } from './frankfurter.service';
 
 /** Import directly for defaults, or use register/registerAsync for configuration. */
 @Module({
-  imports: [HttpModule.register({})],
   providers: [
+    // A provider owned by each configured module keeps hooks/interceptors isolated.
+    {
+      provide: HttpService,
+      useFactory: () => {
+        const axios = new HttpService().axiosRef;
+        return new HttpService(axios.create());
+      },
+    },
     FrankfurterService,
     { provide: MODULE_OPTIONS_TOKEN, useValue: {} },
   ],

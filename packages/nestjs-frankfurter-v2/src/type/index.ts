@@ -1,3 +1,5 @@
+import type { HttpService } from '@nestjs/axios';
+
 /** Transport defaults for the Frankfurter v2 client. */
 export type FrankfurterConfiguration = {
   /** Complete versioned API URL. Defaults to https://api.frankfurter.dev/v2. */
@@ -6,6 +8,26 @@ export type FrankfurterConfiguration = {
   timeout?: number;
   /** Additional headers, e.g. authentication for a self-hosted instance. */
   headers?: Record<string, string>;
+  /** Retry policy. Disabled unless retries is greater than zero. */
+  retry?: FrankfurterRetryOptions;
+  /** Called synchronously once with this module's isolated Axios instance. */
+  configureAxios?: (instance: HttpService['axiosRef']) => void;
+};
+
+/** Axios retry policy; all durations are milliseconds. */
+export type FrankfurterRetryOptions = {
+  /** Number of additional attempts, default 0. */
+  retries?: number;
+  /** Initial exponential backoff cap, default 100; full jitter is applied. */
+  delay?: number;
+  /** Maximum backoff/Retry-After delay, default 30000. Longer server delays stop retries. */
+  maxDelay?: number;
+  /** Budget across attempts and delays, defaulting to the module timeout. */
+  totalTimeout?: number;
+  /** Retriable HTTP statuses, default [429, 500, 502, 503, 504]. */
+  statusCodes?: readonly number[];
+  /** Retry Axios timeout errors too, default false. */
+  retryTimeouts?: boolean;
 };
 
 /** Per-call cancellation, independent of the module timeout. */

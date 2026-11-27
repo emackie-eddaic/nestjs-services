@@ -53,7 +53,45 @@ export class AppModule {}
 | `timeout` | `10000`                          | Integer milliseconds, from 1 through 2147483647. Invalid values fail during service construction.                                                       |
 | `headers` | none                             | Additional request headers, including authentication for a self-hosted instance. `Accept` is always `application/json`.                                 |
 
-The public API requires no API key. The wrapper returns parsed JSON; it does not request CSV or stream NDJSON. Requests are not automatically retried or cached.
+The public API requires no API key. The wrapper returns parsed JSON; it does not request CSV or stream NDJSON. Caching is left to the application. Retries are opt-in through the Axios-layer policy below.
+
+## Axios configuration and retries
+
+```typescript
+FrankfurterModule.register({
+  timeout: 5000,
+  retry: {
+    retries: 2,
+    delay: 200,
+    maxDelay: 5000,
+    totalTimeout: 15000,
+  },
+  configureAxios: (axios) => {
+    axios.defaults.maxRedirects = 3;
+    axios.interceptors.request.use((request) => {
+      request.headers.set('X-Application', 'billing');
+      return request;
+    });
+  },
+});
+```
+
+`configureAxios` is a synchronous hook called once during construction with the module's isolated Axios instance. Use it for adapters, agents, proxy settings, defaults, and interceptors. It also works in `registerAsync` factory results. Each configured module owns its transport. Exceptions in the hook fail service construction.
+
+The wrapper supplies the URL, query, timeout, Accept header, JSON response parser, and caller signal on each request; these take precedence over Axios defaults. Request interceptors can intentionally override request values, and response interceptors run before runtime validation. Consumer interceptors are installed before the built-in retry interceptors; response hooks therefore see failures before retry handling and request hooks run on every attempt. Avoid installing a second retry policy on the same instance, since nested policies can multiply attempts.
+
+| Retry option    | Default                     | Meaning                                                                                                                     |
+| --------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `retries`       | `0`                         | Maximum additional attempts; zero disables retries.                                                                         |
+| `delay`         | `100`                       | Initial exponential backoff cap in milliseconds; full jitter selects a delay below the cap. Zero allows immediate retries.  |
+| `maxDelay`      | `30000`                     | Maximum backoff cap; must be at least `delay`. A longer `Retry-After` stops retries rather than retrying early.             |
+| `totalTimeout`  | module `timeout`            | Total budget in milliseconds for Axios attempts and retry delays. Each attempt's timeout is capped by the remaining budget. |
+| `statusCodes`   | `[429, 500, 502, 503, 504]` | Explicit HTTP status allowlist; integers from 400 through 599.                                                              |
+| `retryTimeouts` | `false`                     | Also retry Axios `ECONNABORTED` and `ETIMEDOUT` failures.                                                                   |
+
+Counts and delays must be integers from zero through 2147483647; `totalTimeout` must be positive. Invalid retry configuration fails service construction. If another attempt or its delay cannot fit the budget, the last HTTP/transport error is returned. `timeout` remains the per-attempt ceiling, while `totalTimeout` limits the sequence. Axios transport adapters must honor `timeout` and `signal`; custom adapters are responsible for implementing them.
+
+Only GET requests are retried. In addition to allowed HTTP statuses, transient transport codes `ERR_NETWORK`, `ECONNRESET`, `ECONNREFUSED`, `EAI_AGAIN`, `ENOTFOUND`, and `EPIPE` are eligible. Cancellation, malformed JSON, schema validation failures, and other errors are not retried. A valid `Retry-After` in seconds or HTTP-date form establishes a minimum wait; otherwise the client uses backoff with jitter. Abort signals cancel pending retry delays immediately. Retry state is separate for every request, and only the built-in handlers are removed when Nest destroys the service.
 
 ## Service methods
 
@@ -112,7 +150,7 @@ const pending = frankfurter.getRates(
 
 ## Responses and errors
 
-Results preserve upstream field names and date strings, including nullable/optional metadata. A rate is `{ date, base, quote, rate, providers? }`; rate lists are flat arrays rather than maps. Expanded provider observations retain their own dates and any `excluded` flag. The wrapper supplies TypeScript types without runtime response-schema validation.
+Results preserve upstream field names and date strings, including nullable/optional metadata. A rate is `{ date, base, quote, rate, providers? }`; rate lists are flat arrays rather than maps. Expanded provider observations retain their own dates and any `excluded` flag. Every successful response is validated against its endpoint's v2 schema, including required fields, arrays, nested provider/dataset metadata, date formats, positive finite rates, and documented enums. Optional/nullable fields follow the API contract. Additional fields are accepted and retained, including nested additions; values are not coerced or defaulted. A response with missing or incompatible fields is rejected before it reaches application code.
 
 Request failures throw exported `FrankfurterApiError`, which extends `Error`:
 
@@ -121,6 +159,8 @@ Request failures throw exported `FrankfurterApiError`, which extends `Error`:
 - `message`: upstream JSON message when available, otherwise the original error message.
 - `code`: Axios failure code, e.g. `ECONNABORTED`/`ETIMEDOUT` for timeouts or `ERR_CANCELED` for cancellation.
 - `cause`: original failure.
+
+Schema mismatches throw exported `FrankfurterResponseValidationError` with `body`, HTTP `status`, and `issues` containing field `path` and `message`. This error is separate from `FrankfurterApiError`; handle it as an unexpected upstream contract change. Invalid JSON continues to throw `FrankfurterApiError` with the parsing failure as its cause. Validation does not affect the HTTP error-body preservation described above.
 
 Invalid configuration and conflicting date options throw `TypeError`.
 
