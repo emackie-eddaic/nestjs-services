@@ -1,5 +1,8 @@
 import type { HttpService } from '@nestjs/axios';
-import type { InternalAxiosRequestConfig } from 'axios' with {
+import type {
+  InternalAxiosRequestConfig,
+  AxiosRequestTransformer,
+} from 'axios' with {
   'resolution-mode': 'import',
 };
 import { AxiosError, CanceledError, isAxiosError, isCancel } from 'axios';
@@ -89,12 +92,7 @@ export function installRetries(
     );
   }
   if (retries === 0) return () => {};
-  const requestId = client.interceptors.request.use((request: RetryConfig) => {
-    const state: RetryState = (request._frankfurterRetry ??= {
-      started: Date.now(),
-      count: 0,
-      timeout: request.timeout ?? timeout,
-    });
+  const enforceBudget = (request: RetryConfig, state: RetryState): void => {
     const remaining = totalTimeout - (Date.now() - state.started);
     if (remaining <= 0) {
       if (state.lastFailure) throw state.lastFailure();
@@ -104,7 +102,40 @@ export function installRetries(
         request,
       );
     }
-    request.timeout = Math.min(state.timeout || totalTimeout, remaining);
+    request.timeout = Math.min(
+      request.timeout || totalTimeout,
+      state.timeout || totalTimeout,
+      remaining,
+    );
+  };
+  // Axios runs request transforms after all async request interceptors, directly
+  // before adapter dispatch. Preserve existing serializers and check last.
+  const dispatchBudget: AxiosRequestTransformer = function (
+    this: RetryConfig,
+    data: unknown,
+  ) {
+    const state = this._frankfurterRetry;
+    if (state) enforceBudget(this, state);
+    return data;
+  };
+  const requestId = client.interceptors.request.use((request: RetryConfig) => {
+    const state: RetryState = (request._frankfurterRetry ??= {
+      started: Date.now(),
+      count: 0,
+      timeout: request.timeout ?? timeout,
+    });
+    enforceBudget(request, state);
+    const transforms = request.transformRequest;
+    const existing = Array.isArray(transforms)
+      ? transforms
+      : transforms
+        ? [transforms]
+        : [];
+    // Reusing the same guard avoids accumulating transforms across retries.
+    request.transformRequest = [
+      ...existing.filter((transform) => transform !== dispatchBudget),
+      dispatchBudget,
+    ];
     return request;
   });
   const responseId = client.interceptors.response.use(
