@@ -18,6 +18,9 @@
     },
     {
       "path": "packages/nestjs-thingsboard-http-integration"
+    },
+    {
+      "path": "packages/nestjs-frankfurter-v2"
     }
   ],
   "files": []

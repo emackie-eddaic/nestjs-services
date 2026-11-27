@@ -7,6 +7,11 @@ import { join } from 'node:path';
 import { preparePackage, root } from './prepare-package.mjs';
 
 const exportsToCheck = {
+  'nestjs-frankfurter-v2': [
+    'FrankfurterModule',
+    'FrankfurterService',
+    'FrankfurterApiError',
+  ],
   'nestjs-cacheable': ['CacheableModule', 'CacheableService'],
   'nestjs-decorators': ['TransformInt', 'ParseBigIntPipe'],
   'nestjs-google-maps': ['GoogleMapsModule', 'GoogleMapsService'],
