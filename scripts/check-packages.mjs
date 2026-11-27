@@ -40,7 +40,7 @@ try {
     if (directory === 'nestjs-google-maps') {
       assert.equal(
         manifest.peerDependencies['@googlemaps/google-maps-services-js'],
-        '^3.4.2',
+        '^3.0.0',
       );
       assert.equal(
         manifest.dependencies?.['@googlemaps/google-maps-services-js'],
@@ -103,95 +103,108 @@ try {
     [11, nest11],
     [12, {}],
   ]) {
-    const consumer = join(temporary, `nest-${major}`);
-    await mkdir(consumer);
-    await writeFile(
-      join(consumer, 'package.json'),
-      JSON.stringify({
-        name: `nestjs-services-package-check-${major}`,
-        private: true,
-        type: 'module',
-        dependencies: { ...dependencies, ...overrides },
-        devDependencies: {
-          '@types/node': lock.packages['node_modules/@types/node'].version,
-        },
-      }),
-    );
-    runNpm(
-      ['install', '--ignore-scripts', '--no-audit', '--no-fund'],
-      consumer,
-    );
-    const require = createRequire(join(consumer, 'consumer.cjs'));
-    const typeImports = [];
-    for (const [
-      index,
-      { directory, manifest, exports },
-    ] of packages.entries()) {
-      const installed = require(`${manifest.name}/package.json`);
-      assert.equal(installed.version, manifest.version);
-      assert.equal(installed.type, 'commonjs');
-      assert.equal(installed.main, 'index.js');
-      assert.equal(installed.types, 'index.d.ts');
-      assert.equal(installed.devDependencies, undefined);
-      assert.equal(installed.scripts, undefined);
-      const api = require(manifest.name);
-      for (const name of exports) {
-        assert.equal(
-          typeof api[name],
-          'function',
-          `${manifest.name}: missing ${name}`,
-        );
-      }
-      const installedRoot = join(consumer, 'node_modules', manifest.name);
-      for (const file of ['LICENSE', 'README.md']) {
-        assert.equal(
-          await readFile(join(installedRoot, file), 'utf8'),
-          await readFile(
-            join(
-              file === 'LICENSE' ? root : join(root, 'packages', directory),
-              file,
-            ),
-            'utf8',
-          ),
-        );
-      }
-      typeImports.push(
-        `import { ${exports.map((name) => `${name} as ${name}${index}`).join(', ')} } from '${manifest.name}';`,
-        ...exports.map((name) => `void ${name}${index};`),
-      );
-    }
-
-    for (const extension of ['cts', 'mts']) {
+    for (const mapsVersion of new Set([
+      '3.0.0',
+      dependencies['@googlemaps/google-maps-services-js'],
+    ])) {
+      const consumer = join(temporary, `nest-${major}-maps-${mapsVersion}`);
+      await mkdir(consumer);
       await writeFile(
-        join(consumer, `consumer.${extension}`),
-        typeImports.join('\n') + '\n' + fixture,
+        join(consumer, 'package.json'),
+        JSON.stringify({
+          name: `nestjs-services-package-check-${major}-maps-${mapsVersion}`,
+          private: true,
+          type: 'module',
+          dependencies: {
+            ...dependencies,
+            ...overrides,
+            '@googlemaps/google-maps-services-js': mapsVersion,
+          },
+          devDependencies: {
+            '@types/node': lock.packages['node_modules/@types/node'].version,
+          },
+        }),
       );
-    }
-    execFileSync(
-      process.execPath,
-      [
-        join(root, 'node_modules', 'typescript', 'bin', 'tsc'),
-        '--strict',
-        '--skipLibCheck',
-        '--experimentalDecorators',
-        '--emitDecoratorMetadata',
-        '--module',
-        'nodenext',
-        '--target',
-        'ES2023',
-        'consumer.cts',
-        'consumer.mts',
-      ],
-      { cwd: consumer, stdio: 'inherit' },
-    );
-    for (const extension of ['cjs', 'mjs']) {
-      execFileSync(process.execPath, [`consumer.${extension}`], {
-        cwd: consumer,
-        stdio: 'inherit',
-      });
-      console.log(
-        `NestJS ${major}: ${extension} consumer passed runtime, types, and module wiring checks`,
+      runNpm(
+        ['install', '--ignore-scripts', '--no-audit', '--no-fund'],
+        consumer,
       );
+      const require = createRequire(join(consumer, 'consumer.cjs'));
+      assert.equal(
+        require('@googlemaps/google-maps-services-js/package.json').version,
+        mapsVersion,
+      );
+      const typeImports = [];
+      for (const [
+        index,
+        { directory, manifest, exports },
+      ] of packages.entries()) {
+        const installed = require(`${manifest.name}/package.json`);
+        assert.equal(installed.version, manifest.version);
+        assert.equal(installed.type, 'commonjs');
+        assert.equal(installed.main, 'index.js');
+        assert.equal(installed.types, 'index.d.ts');
+        assert.equal(installed.devDependencies, undefined);
+        assert.equal(installed.scripts, undefined);
+        const api = require(manifest.name);
+        for (const name of exports) {
+          assert.equal(
+            typeof api[name],
+            'function',
+            `${manifest.name}: missing ${name}`,
+          );
+        }
+        const installedRoot = join(consumer, 'node_modules', manifest.name);
+        for (const file of ['LICENSE', 'README.md']) {
+          assert.equal(
+            await readFile(join(installedRoot, file), 'utf8'),
+            await readFile(
+              join(
+                file === 'LICENSE' ? root : join(root, 'packages', directory),
+                file,
+              ),
+              'utf8',
+            ),
+          );
+        }
+        typeImports.push(
+          `import { ${exports.map((name) => `${name} as ${name}${index}`).join(', ')} } from '${manifest.name}';`,
+          ...exports.map((name) => `void ${name}${index};`),
+        );
+      }
+
+      for (const extension of ['cts', 'mts']) {
+        await writeFile(
+          join(consumer, `consumer.${extension}`),
+          typeImports.join('\n') + '\n' + fixture,
+        );
+      }
+      execFileSync(
+        process.execPath,
+        [
+          join(root, 'node_modules', 'typescript', 'bin', 'tsc'),
+          '--strict',
+          '--skipLibCheck',
+          '--experimentalDecorators',
+          '--emitDecoratorMetadata',
+          '--module',
+          'nodenext',
+          '--target',
+          'ES2023',
+          'consumer.cts',
+          'consumer.mts',
+        ],
+        { cwd: consumer, stdio: 'inherit' },
+      );
+      for (const extension of ['cjs', 'mjs']) {
+        execFileSync(process.execPath, [`consumer.${extension}`], {
+          cwd: consumer,
+          stdio: 'inherit',
+        });
+        console.log(
+          `NestJS ${major}, Maps ${mapsVersion}: ${extension} consumer passed runtime, types, and module wiring checks`,
+        );
+      }
     }
   }
 } finally {

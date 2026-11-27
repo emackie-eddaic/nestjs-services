@@ -9,7 +9,7 @@ Supports NestJS 11 and 12 in CommonJS and ESM applications. Use Node.js 20.19+ (
 Install the wrapper and its required Google client peer:
 
 ```sh
-npm install @eddaic/nestjs-google-maps @googlemaps/google-maps-services-js@^3.4.2
+npm install @eddaic/nestjs-google-maps @googlemaps/google-maps-services-js
 ```
 
 Import Google types and enums directly from `@googlemaps/google-maps-services-js`.
