@@ -5,5 +5,5 @@
   "packages/nestjs-google-places": "1.0.0",
   "packages/nestjs-maxmind-geoip2": "5.2.0",
   "packages/nestjs-thingsboard-http-integration": "3.2.0",
-  "packages/nestjs-frankfurter-v2": "1.0.0"
+  "packages/nestjs-frankfurter-v2": "1.1.0"
 }
