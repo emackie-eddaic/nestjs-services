@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.2.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v3.1.0...nestjs-thingsboard-http-integration-v3.2.0) (2026-11-27)
+
+
+### Features
+
+* **nestjs-google-places:** add configurable official Places client with ([4c86b40](https://github.com/emackie-eddaic/nestjs-services/commit/4c86b40d4a178875271d7e9a148f6b96315f0024))
+* **nestjs-google-places:** add official Places client wrapper ([#175](https://github.com/emackie-eddaic/nestjs-services/issues/175)) ([4c86b40](https://github.com/emackie-eddaic/nestjs-services/commit/4c86b40d4a178875271d7e9a148f6b96315f0024))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @eddaic/nestjs-cacheable bumped from ^7.1.0 to ^7.2.0
+
 ## [3.1.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-thingsboard-http-integration-v3.0.0...nestjs-thingsboard-http-integration-v3.1.0) (2026-10-22)
 
 

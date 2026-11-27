@@ -1,5 +1,23 @@
 # Changelog
 
+## [7.0.0](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v6.1.1...nestjs-google-maps-v7.0.0) (2026-11-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **nestjs-google-maps:** simplify wrapper public API ([#171](https://github.com/emackie-eddaic/nestjs-services/issues/171))
+
+### Features
+
+* **nestjs-google-places:** add configurable official Places client with ([4c86b40](https://github.com/emackie-eddaic/nestjs-services/commit/4c86b40d4a178875271d7e9a148f6b96315f0024))
+* **nestjs-google-places:** add official Places client wrapper ([#175](https://github.com/emackie-eddaic/nestjs-services/issues/175)) ([4c86b40](https://github.com/emackie-eddaic/nestjs-services/commit/4c86b40d4a178875271d7e9a148f6b96315f0024))
+
+
+### Bug Fixes
+
+* **nestjs-google-maps:** simplify wrapper public API ([#171](https://github.com/emackie-eddaic/nestjs-services/issues/171)) ([a6fe763](https://github.com/emackie-eddaic/nestjs-services/commit/a6fe763791530f1df4981f4bb8e3c737253dd40f))
+* **nestjs-google-maps:** support Google client 3.x with minimum and ([a6fe763](https://github.com/emackie-eddaic/nestjs-services/commit/a6fe763791530f1df4981f4bb8e3c737253dd40f))
+
 ## [6.1.1](https://github.com/emackie-eddaic/nestjs-services/compare/nestjs-google-maps-v6.1.0...nestjs-google-maps-v6.1.1) (2026-11-26)
 
 
