@@ -9,7 +9,7 @@ describe('GoogleMapsModule', () => {
     'exports the service with %s configuration',
     async (registration) => {
       const configuration: GoogleMapsConfiguration = {
-        params: { key: 'test-api-key' },
+        config: { experienceId: ['test-experience'] },
       };
       @Module({
         providers: [{ provide: 'CONFIGURATION', useValue: configuration }],
@@ -39,7 +39,7 @@ describe('GoogleMapsModule', () => {
       try {
         const service = module.get<GoogleMapsService>('CONSUMER');
         expect(service).toBeInstanceOf(GoogleMapsService);
-        expect(service.params).toEqual(configuration.params);
+        expect(service.client.getExperienceId()).toEqual(['test-experience']);
       } finally {
         await module.close();
       }

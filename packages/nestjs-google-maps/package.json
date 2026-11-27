@@ -1,7 +1,7 @@
 {
   "name": "@eddaic/nestjs-google-maps",
   "version": "6.1.1",
-  "description": "NestJS Google Maps API client with convenience methods for places, reverse geocoding, geolocation, elevation, and time zones.",
+  "description": "NestJS dependency-injection wrapper for the official Google Maps Services JS client.",
   "main": "build/index.js",
   "author": "Eric Mackie <eric.mackie@essolutions.ca>",
   "license": "ISC",
@@ -25,13 +25,12 @@
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.4.2"
-  },
   "devDependencies": {
+    "@googlemaps/google-maps-services-js": "^3.4.2",
     "@nestjs/common": "^12.2.0"
   },
   "peerDependencies": {
+    "@googlemaps/google-maps-services-js": "^3.0.0",
     "@nestjs/common": "^11.0.0 || ^12.0.0"
   },
   "type": "commonjs",

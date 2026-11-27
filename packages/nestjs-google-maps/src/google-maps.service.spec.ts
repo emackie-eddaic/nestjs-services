@@ -1,107 +1,113 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
+import { Client, Status } from '@googlemaps/google-maps-services-js';
+import * as api from './index';
 import { GoogleMapsModule } from './google-maps.module';
-import { MODULE_OPTIONS_TOKEN } from './google-maps.module-definition';
 import { GoogleMapsService } from './google-maps.service';
 
 describe('GoogleMapsService', () => {
-  let service: GoogleMapsService;
+  it('exports only the NestJS module and service at runtime', () => {
+    expect(Object.keys(api).sort()).toEqual([
+      'GoogleMapsModule',
+      'GoogleMapsService',
+    ]);
+  });
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [GoogleMapsModule],
-      providers: [
-        GoogleMapsService,
-        { provide: MODULE_OPTIONS_TOKEN, useValue: {} },
+  it.each([GoogleMapsModule, GoogleMapsModule.register({})])(
+    'provides a default client without shared authentication configuration (%#)',
+    async (imported) => {
+      const module = await Test.createTestingModule({
+        imports: [imported],
+      }).compile();
+      try {
+        const service = module.get(GoogleMapsService);
+        expect(service.client).toBeInstanceOf(Client);
+        expect('params' in service).toBe(false);
+        for (const name of [
+          'elevation',
+          'geolocate',
+          'placeDetails',
+          'reverseGeocode',
+          'reverseGeocodeAsPlace',
+          'timezone',
+        ]) {
+          expect(name in service).toBe(false);
+        }
+      } finally {
+        await module.close();
+      }
+    },
+  );
+
+  it('forwards client options and uses credentials from each direct request', async () => {
+    const requests: { key: string; latlng: unknown }[] = [];
+    const module = await Test.createTestingModule({
+      imports: [
+        GoogleMapsModule.register({
+          config: {
+            experienceId: ['consumer'],
+            config: {
+              timeout: 1234,
+              headers: { 'X-Test': 'configured' },
+              adapter: (request) => {
+                expect(request.url).toBe(
+                  'https://maps.googleapis.com/maps/api/geocode/json',
+                );
+                expect(request.timeout).toBe(1234);
+                expect(request.headers.get('X-Test')).toBe('configured');
+                expect(request.headers.get('X-GOOG-MAPS-EXPERIENCE-ID')).toBe(
+                  'consumer',
+                );
+                requests.push(
+                  request.params as { key: string; latlng: unknown },
+                );
+                return Promise.resolve({
+                  data: { status: Status.OK, results: [] },
+                  status: 200,
+                  statusText: 'OK',
+                  headers: {},
+                  config: request,
+                });
+              },
+            },
+          },
+        }),
       ],
     }).compile();
-
-    service = module.get<GoogleMapsService>(GoogleMapsService);
+    try {
+      const service = module.get(GoogleMapsService);
+      const latlng = { lat: 43, lng: -79 };
+      for (const key of ['first-key', 'second-key']) {
+        const response = await service.client.reverseGeocode({
+          params: { key, latlng },
+        });
+        expect(response.data).toEqual({ status: Status.OK, results: [] });
+      }
+      expect(requests).toEqual([
+        { key: 'first-key', latlng },
+        { key: 'second-key', latlng },
+      ]);
+    } finally {
+      await module.close();
+    }
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
-  describe('elevation', () => {
-    it('should return GoogleMapService.elevation.data', async () => {
-      const elevationSpy = jest
-        .spyOn(service.client, 'elevation')
-        .mockResolvedValue({ data: 'test' } as never);
-      expect(
-        await service.elevation({ locations: [{ latitude: 0, longitude: 0 }] }),
-      ).toEqual('test');
-      expect(elevationSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('geolocate', () => {
-    it('should return GoogleMapService.geolocate.data', async () => {
-      const geolocateSpy = jest
-        .spyOn(service.client, 'geolocate')
-        .mockResolvedValue({ data: 'test' } as never);
-      expect(await service.geolocate({})).toEqual('test');
-      expect(geolocateSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('placeDetails', () => {
-    it('should return GoogleMapService.placeDetails.data.result', async () => {
-      const placeDetailsSpy = jest
-        .spyOn(service.client, 'placeDetails')
-        .mockResolvedValue({ data: { result: 'test' } } as never);
-      expect(await service.placeDetails({ place_id: 'test' })).toEqual('test');
-      expect(placeDetailsSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('reverseGeocode', () => {
-    it('should return GoogleMapService.reverseGeocode.data.results', async () => {
-      const spy = jest
-        .spyOn(service.client, 'reverseGeocode')
-        .mockResolvedValue({ data: { results: [] } } as never);
-      expect(await service.reverseGeocode({ place_id: 'test' })).toEqual([]);
-      expect(spy).toHaveBeenCalled();
-    });
-  });
-
-  describe('reverseGeocodeAsPlace', () => {
-    it('should return GoogleMapService.placeDetails from result', async () => {
-      const reverseGeocodeSpy = jest
-        .spyOn(service, 'reverseGeocode')
-        .mockResolvedValue([{ place_id: 'test-place' }] as never);
-      const placeDetailsSpy = jest
-        .spyOn(service, 'placeDetails')
-        .mockResolvedValue('test' as never);
-      expect(await service.reverseGeocodeAsPlace({})).toEqual('test');
-      expect(reverseGeocodeSpy).toHaveBeenCalled();
-      expect(placeDetailsSpy).toHaveBeenCalledWith({ place_id: 'test-place' });
-    });
-
-    it('should throw error if no results', async () => {
-      const reverseGeocodeSpy = jest
-        .spyOn(service, 'reverseGeocode')
-        .mockResolvedValue([]);
-      const placeDetailsSpy = jest.spyOn(service, 'placeDetails');
-      await expect(service.reverseGeocodeAsPlace({})).rejects.toThrow(
-        'No places returned',
-      );
-      expect(reverseGeocodeSpy).toHaveBeenCalled();
-      expect(placeDetailsSpy).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('timezone', () => {
-    it('should return GoogleMapService.client.timezone.data', async () => {
-      const spy = jest
-        .spyOn(service.client, 'timezone')
-        .mockResolvedValue({ data: 'test' } as never);
-      expect(
-        await service.timezone({
-          location: { lat: 0, lng: 0 },
-          timestamp: new Date(),
+  it('preserves direct-client error propagation', async () => {
+    const failure = new Error('HTTP adapter failed');
+    const module = await Test.createTestingModule({
+      imports: [
+        GoogleMapsModule.register({
+          config: { config: { adapter: () => Promise.reject(failure) } },
         }),
-      ).toEqual('test');
-      expect(spy).toHaveBeenCalled();
-    });
+      ],
+    }).compile();
+    try {
+      await expect(
+        module.get(GoogleMapsService).client.reverseGeocode({
+          params: { key: 'test-key', latlng: { lat: 43, lng: -79 } },
+        }),
+      ).rejects.toBe(failure);
+    } finally {
+      await module.close();
+    }
   });
 });

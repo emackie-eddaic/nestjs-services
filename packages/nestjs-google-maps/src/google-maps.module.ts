@@ -6,7 +6,7 @@ import {
 import { GoogleMapsService } from './google-maps.service';
 import { GoogleMapsConfiguration } from './type';
 
-const defaultConfig: GoogleMapsConfiguration = { params: { key: '' } };
+const defaultConfig: GoogleMapsConfiguration = {};
 
 /**
  * Provides {@link GoogleMapsService} using the official Google Maps client.

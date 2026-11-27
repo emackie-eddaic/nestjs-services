@@ -3,8 +3,13 @@ import 'reflect-metadata';
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { CacheableModule, CacheableService } from '@eddaic/nestjs-cacheable';
-import { IsBigInt, ParseBigIntPipe, TransformInt } from '@eddaic/nestjs-decorators';
 import {
+  IsBigInt,
+  ParseBigIntPipe,
+  TransformInt,
+} from '@eddaic/nestjs-decorators';
+import {
+  type GoogleMapsConfiguration,
   GoogleMapsModule,
   GoogleMapsService,
 } from '@eddaic/nestjs-google-maps';
@@ -16,6 +21,7 @@ import {
   ThingsBoardHttpIntegrationModule,
   ThingsBoardHttpIntegrationService,
 } from '@eddaic/nestjs-thingsboard-http-integration';
+import { Client, Status } from '@googlemaps/google-maps-services-js';
 import { HttpService } from '@nestjs/axios';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
@@ -50,7 +56,31 @@ async function check() {
   );
 
   for (const asyncRegistration of [false, true]) {
-    const mapsConfig = { params: { key: 'test-api-key' } };
+    let mapsCalls = 0;
+    const mapsConfig: GoogleMapsConfiguration = {
+      config: {
+        experienceId: ['tarball-consumer'],
+        config: {
+          timeout: 1234,
+          adapter: (request) => {
+            mapsCalls++;
+            assert.equal(
+              request.url,
+              'https://maps.googleapis.com/maps/api/geocode/json',
+            );
+            assert.equal(request.timeout, 1234);
+            assert.equal(request.params.key, 'test-api-key');
+            return Promise.resolve({
+              data: { status: Status.OK, results: [] },
+              status: 200,
+              statusText: 'OK',
+              headers: {},
+              config: request,
+            });
+          },
+        },
+      },
+    };
     const geoipConfig = { accountId: '123', licenseKey: 'test-license' };
     const thingsboardConfig = {
       baseUrl: 'https://thingsboard.example',
@@ -79,7 +109,47 @@ async function check() {
     try {
       await module.init();
       assert.ok(module.get(CacheableService) instanceof CacheableService);
-      assert.deepEqual(module.get(GoogleMapsService).params, mapsConfig.params);
+      const maps = module.get(GoogleMapsService);
+      assert.ok(maps.client instanceof Client);
+      assert.deepEqual(
+        Object.keys(require('@eddaic/nestjs-google-maps')).sort(),
+        ['GoogleMapsModule', 'GoogleMapsService'],
+      );
+      const publicMapsExports: Record<
+        keyof typeof import('@eddaic/nestjs-google-maps'),
+        true
+      > = {
+        GoogleMapsModule: true,
+        GoogleMapsService: true,
+      };
+      void publicMapsExports;
+      assert.deepEqual(maps.client.getExperienceId(), ['tarball-consumer']);
+      // The wrapper now exposes only the configured client; check the public
+      // declaration surface as well as runtime absence of the removed members.
+      const publicMapsApi: Record<keyof GoogleMapsService, true> = {
+        client: true,
+      };
+      const publicMapsConfig: Record<keyof GoogleMapsConfiguration, true> = {
+        config: true,
+      };
+      void publicMapsApi;
+      void publicMapsConfig;
+      for (const name of [
+        'params',
+        'elevation',
+        'geolocate',
+        'placeDetails',
+        'reverseGeocode',
+        'reverseGeocodeAsPlace',
+        'timezone',
+      ]) {
+        assert.equal(name in maps, false);
+      }
+      const response = await maps.client.reverseGeocode({
+        params: { key: 'test-api-key', latlng: { lat: 43, lng: -79 } },
+      });
+      assert.deepEqual(response.data.results, []);
+      assert.equal(mapsCalls, 1);
       assert.ok(
         module.get(MaxmindGeoip2Service) instanceof MaxmindGeoip2Service,
       );
