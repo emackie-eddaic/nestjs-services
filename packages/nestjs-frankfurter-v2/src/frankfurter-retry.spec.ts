@@ -163,6 +163,128 @@ describe('Frankfurter Axios retries', () => {
     expect(timeouts).toEqual([1000, 100]);
   });
 
+  it('does not dispatch when an async request hook exhausts the total budget', async () => {
+    const adapter = jest.fn((config: InternalAxiosRequestConfig) =>
+      Promise.resolve(response(config)),
+    );
+    const { service } = setup(
+      {
+        retry: { retries: 1, totalTimeout: 60 },
+        configureAxios: (client) => {
+          client.interceptors.request.use(async (config) => {
+            await new Promise<void>((resolve) => setTimeout(resolve, 100));
+            return config;
+          });
+        },
+      },
+      adapter,
+    );
+    const pending = service
+      .getRate('EUR', 'USD')
+      .catch((error: unknown) => error);
+    await jest.advanceTimersByTimeAsync(100);
+    expect(await pending).toMatchObject({
+      code: 'ETIMEDOUT',
+      status: undefined,
+    });
+    expect(adapter).not.toHaveBeenCalled();
+    expect(jest.getTimerCount()).toBe(0);
+  });
+
+  it('subtracts async request hook time from the transport timeout', async () => {
+    const adapter = jest.fn((config: InternalAxiosRequestConfig) =>
+      Promise.resolve(response(config)),
+    );
+    const { service } = setup(
+      {
+        timeout: 100,
+        retry: { retries: 1, totalTimeout: 60 },
+        configureAxios: (client) => {
+          client.interceptors.request.use(async (config) => {
+            await new Promise<void>((resolve) => setTimeout(resolve, 20));
+            return config;
+          });
+        },
+      },
+      adapter,
+    );
+    const pending = service.getRate('EUR', 'USD');
+    await jest.advanceTimersByTimeAsync(20);
+    await expect(pending).resolves.toEqual(rate);
+    expect(adapter).toHaveBeenCalledTimes(1);
+    expect(adapter.mock.calls[0][0].timeout).toBe(40);
+    expect(jest.getTimerCount()).toBe(0);
+  });
+
+  it('preserves custom serializers across retries and counts their execution time', async () => {
+    const serialize = jest.fn((data: unknown) => {
+      jest.setSystemTime(Date.now() + 10);
+      return data;
+    });
+    const timeouts: (number | undefined)[] = [];
+    const adapter = jest.fn((config: InternalAxiosRequestConfig) => {
+      timeouts.push(config.timeout);
+      return timeouts.length === 1
+        ? Promise.reject(failure(config, 503))
+        : Promise.resolve(response(config));
+    });
+    const { service } = setup(
+      {
+        retry: { retries: 1, delay: 20, totalTimeout: 60 },
+        configureAxios: (client) => {
+          client.defaults.transformRequest = serialize;
+          client.interceptors.request.use(async (config) => {
+            await new Promise<void>((resolve) => setTimeout(resolve, 10));
+            return config;
+          });
+        },
+      },
+      adapter,
+    );
+    const pending = service.getRate('EUR', 'USD');
+    await jest.runAllTimersAsync();
+    await expect(pending).resolves.toEqual(rate);
+    expect(timeouts).toEqual([40, 10]);
+    expect(serialize).toHaveBeenCalledTimes(2);
+  });
+
+  it('preserves the terminal failure when an async retry hook exhausts the budget', async () => {
+    let original: unknown;
+    let hooks = 0;
+    const adapter = jest.fn((config: InternalAxiosRequestConfig) => {
+      const cause = failure(config, 503);
+      original = cause;
+      return Promise.reject(cause);
+    });
+    const { service } = setup(
+      {
+        retry: { retries: 2, delay: 0, totalTimeout: 60 },
+        configureAxios: (client) => {
+          client.interceptors.request.use(async (config) => {
+            if (++hooks === 2)
+              await new Promise<void>((resolve) => setTimeout(resolve, 100));
+            return config;
+          });
+        },
+      },
+      adapter,
+    );
+    const pending = service
+      .getRate('EUR', 'USD')
+      .catch((error: unknown) => error);
+    await jest.advanceTimersByTimeAsync(100);
+    const error: unknown = await pending;
+    expect(error).toMatchObject({
+      status: 503,
+      body: { message: 'upstream failure' },
+    });
+    expect(error instanceof FrankfurterApiError ? error.cause : undefined).toBe(
+      original,
+    );
+    expect(adapter).toHaveBeenCalledTimes(1);
+    expect(jest.getTimerCount()).toBe(0);
+  });
+
   it('preserves the last HTTP failure when a backoff timer resumes after the budget', async () => {
     let original: unknown;
     const adapter = jest.fn((config: InternalAxiosRequestConfig) => {
