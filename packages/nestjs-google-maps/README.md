@@ -61,4 +61,4 @@ The outer `config` accepts the official `ClientOptions`, including Axios `config
 
 ## Places API support
 
-The underlying client uses Places API (Legacy), which cannot be enabled for new Google Cloud projects. For Places API (New), use Google's official [`@googlemaps/places`](https://developers.google.com/maps/documentation/places/web-service/client-libraries) client.
+The underlying client uses Places API (Legacy), which cannot be enabled for new Google Cloud projects. For Places API (New), use the separate [nestjs-google-places](../nestjs-google-places/README.md) wrapper.

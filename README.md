@@ -7,6 +7,7 @@ An npm workspace monorepo containing NestJS libraries published under `@eddaic`.
 | [nestjs-cacheable](packages/nestjs-cacheable/README.md)                                       | DNS caching with cacheable-lookup                            |
 | [nestjs-decorators](packages/nestjs-decorators/README.md)                                     | DTO decorators, transformers, validators, and pipes          |
 | [nestjs-google-maps](packages/nestjs-google-maps/README.md)                                   | Dependency injection for the official Google Maps client |
+| [nestjs-google-places](packages/nestjs-google-places/README.md) | Dependency injection for the official Places API (New) client |
 | [nestjs-maxmind-geoip2](packages/nestjs-maxmind-geoip2/README.md)                             | MaxMind GeoIP2 web service client                            |
 | [nestjs-thingsboard-http-integration](packages/nestjs-thingsboard-http-integration/README.md) | ThingsBoard telemetry uploads with cached DNS lookups        |
 
@@ -45,7 +46,7 @@ NestJS 11 or 12. Match `@nestjs/swagger` to the NestJS major when using Decorato
 npm run check
 ```
 
-This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies all five npm tarballs in temporary CommonJS and ESM consumer projects on NestJS 11 and 12. It does not publish packages.
+This builds all packages, lints TypeScript, runs unit tests with coverage, and verifies all six npm tarballs in temporary CommonJS and ESM consumer projects on NestJS 11 and 12. It does not publish packages.
 
 | Command                                                                                                                            | Purpose                                                                                          |
 | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |

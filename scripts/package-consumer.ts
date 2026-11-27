@@ -22,6 +22,12 @@ import {
   ThingsBoardHttpIntegrationService,
 } from '@eddaic/nestjs-thingsboard-http-integration';
 import { Client, Status } from '@googlemaps/google-maps-services-js';
+import { PlacesClient, type protos } from '@googlemaps/places';
+import {
+  GooglePlacesModule,
+  GooglePlacesService,
+  type GooglePlacesConfiguration,
+} from '@eddaic/nestjs-google-places';
 import { HttpService } from '@nestjs/axios';
 import { Test } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
@@ -81,11 +87,15 @@ async function check() {
         },
       },
     };
+    const placesConfig: GooglePlacesConfiguration = {
+      config: { apiKey: 'test-key', apiEndpoint: 'places.test.invalid' },
+    };
     const geoipConfig = { accountId: '123', licenseKey: 'test-license' };
     const thingsboardConfig = {
       baseUrl: 'https://thingsboard.example',
       integrationId: 'test-id',
     };
+    let placesClosed = false;
     const module = await Test.createTestingModule({
       imports: [
         CacheableModule,
@@ -94,6 +104,11 @@ async function check() {
               useFactory: async () => mapsConfig,
             })
           : GoogleMapsModule.register(mapsConfig),
+        asyncRegistration
+          ? GooglePlacesModule.registerAsync({
+              useFactory: async () => placesConfig,
+            })
+          : GooglePlacesModule.register(placesConfig),
         asyncRegistration
           ? MaxmindGeoip2Module.registerAsync({
               useFactory: async () => geoipConfig,
@@ -150,6 +165,38 @@ async function check() {
       });
       assert.deepEqual(response.data.results, []);
       assert.equal(mapsCalls, 1);
+      const places = module.get(GooglePlacesService);
+      assert.ok(places.client instanceof PlacesClient);
+      assert.equal(
+        require('@eddaic/nestjs-google-places').GooglePlacesService,
+        GooglePlacesService,
+      );
+      assert.equal(places.client.auth.apiKey, 'test-key');
+      assert.deepEqual(
+        Object.keys(require('@eddaic/nestjs-google-places')).sort(),
+        ['GooglePlacesModule', 'GooglePlacesService'],
+      );
+      const placesApi: Record<keyof GooglePlacesService, true> = {
+        client: true,
+        onModuleDestroy: true,
+      };
+      void placesApi;
+      const placeRequest: protos.google.maps.places.v1.IGetPlaceRequest = {
+        name: 'places/test-place',
+      };
+      // Replace only the transport so the real client can be exercised offline.
+      places.client.initialize = () => Promise.resolve({});
+      places.client.innerApiCalls.getPlace = () =>
+        Promise.resolve([{ id: 'test-place' }, placeRequest, {}]);
+      const [place] = await places.client.getPlace(placeRequest, {
+        otherArgs: { headers: { 'X-Goog-FieldMask': 'id' } },
+      });
+      assert.equal(place.id, 'test-place');
+      const closePlaces = places.client.close.bind(places.client);
+      places.client.close = () => {
+        placesClosed = true;
+        return closePlaces();
+      };
       assert.ok(
         module.get(MaxmindGeoip2Service) instanceof MaxmindGeoip2Service,
       );
@@ -180,6 +227,7 @@ async function check() {
     } finally {
       await module.close();
     }
+    assert.equal(placesClosed, true);
   }
 }
 

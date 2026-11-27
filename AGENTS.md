@@ -2,7 +2,7 @@
 
 ## Layout and boundaries
 
-- This is an npm workspace monorepo of five NestJS libraries. Use Node.js 24 from `.nvmrc`.
+- This is an npm workspace monorepo of six NestJS libraries. Use Node.js 24 from `.nvmrc`.
 - Package responsibilities and setup commands are in [README.md](README.md). Read the relevant package README and existing code before changing behavior.
 - Implementation and colocated `*.spec.ts` tests belong under `packages/<package>/src`. Public APIs flow through each package's `src/index.ts` and its barrels.
 - ThingsBoard imports Cacheable by package name. Its npm dependency, TypeScript project reference, and build command must continue to support standalone builds.
